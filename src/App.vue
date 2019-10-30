@@ -1,17 +1,18 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <img class="img" alt="Vue logo" src="./assets/images/background.jpg">
+    <h1> Projet WebServices sur le 7ème art! 🍿 </h1>
+    <MoviesResultSet/>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import MoviesResultSet from "@/components/movies/MoviesResultSet";
 
 export default {
   name: 'app',
   components: {
-    HelloWorld
+    MoviesResultSet,
   }
 }
 </script>
@@ -24,5 +25,9 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+}
+.img{
+  max-width: 100%;
+  max-height: 900px;
 }
 </style>
