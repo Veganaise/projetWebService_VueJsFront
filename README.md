@@ -13,3 +13,5 @@ Au besoin, modifier l'url présente dans le fichier movies.services.js pour atte
 commande `npm run serve` pour lancer le projet.
 
 
+## CSS
+On utilise Bootstrap vue donc la doc est disponible ici: https://bootstrap-vue.js.org/docs/components/
