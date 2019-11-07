@@ -1,15 +1,12 @@
 <template>
-    <div class="column is-2 has-text-centered">
-        <div class="card">
-            <div class="card-content">
-                <h1>{{titre}}</h1>
-                <p>durée: {{duree}}</p>
-                <p>dateSortie: {{dateSortie}}</p>
-                <p>budget: {{budget}}</p>
-                <p>montant recette: {{montantRecette}}</p>
-            </div>
-        </div>
-    </div>
+    <b-card
+            style="max-width: 20rem;"
+            :title="titre"
+    >
+        <b-card-text>durée: {{duree}}</b-card-text>
+        <b-card-text>dateSortie: {{dateSortie}}</b-card-text>
+        <b-card-text>montant recette: {{montantRecette}}</b-card-text>
+    </b-card>
 </template>
 
 <script>
@@ -18,7 +15,7 @@
         props:{
             titre: String,
             duree: Number,
-            dateSortie: Date,
+            dateSortie: String,
             budget: Number,
             montantRecette: Number,
         }
@@ -26,7 +23,5 @@
 </script>
 
 <style scoped>
-.card{
-    border: dimgray 3px solid;
-}
+
 </style>
