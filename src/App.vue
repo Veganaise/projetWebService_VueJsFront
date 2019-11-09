@@ -1,6 +1,5 @@
 <template>
   <div id="app">
-    <InsertActorForm></InsertActorForm>
     <img class="img" alt="Vue logo" src="./assets/images/background.jpg">
     <h1> Projet WebServices sur le 7ème art! 🍿 </h1>
     <MoviesResultSet/>
@@ -9,13 +8,11 @@
 
 <script>
 import MoviesResultSet from "@/components/movies/MoviesResultSet";
-import InsertActorForm from "@/components/movies/InsertActorForm";
 
 export default {
   name: 'app',
   components: {
-    MoviesResultSet,
-    InsertActorForm
+    MoviesResultSet
   }
 }
 </script>

@@ -10,6 +10,7 @@
 <script>
     import Movie from "@/components/movies/Movie";
     import {getMovies} from "@/services/movies.services";
+    import {authenticate} from "@/services/http-commons";
     export default {
         name: "moviesResultSet",
         components: {Movie},
@@ -19,6 +20,7 @@
             }
         },
         created() { //appelé a la création du component
+            authenticate();
             getMovies().then(()=>{
                 this.$store.dispatch('fetchMovies');
             })
