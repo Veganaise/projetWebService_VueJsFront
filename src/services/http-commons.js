@@ -12,22 +12,10 @@ export const HTTP =axios.create({
         //pour dire au serveur que le data est du json
         "Content-Type" : "application/json",
 
-        //Authorization: 'Bearer {token}'
+        Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJkeWxhbiIsInNjb3BlcyI6IlJPTEVfQURNSU4iLCJpYXQiOjE1NzM4OTgyMTUsImV4cCI6MTU3MzkxNjIxNX0.0Qmj-in9PFmEyiTigLI-hK5swWwbNkg6gfj9lkjFYJY'
     },
     //withCredentials: true
 });
-
-
-var session_url = `http://${API_PATH}/authentication/authenticate`;
-var uname = "dylan";
-var pass = "12345";
-
-// on console log le data qu'on envoit (du moins j'espère)
-// eslint-disable-next-line no-console
-console.log(Qs.parse({
-    "\"username\"": uname,
-    "\"password\"": pass
-}));
 
 // Add a request interceptor
 axios.interceptors.request.use(function (config) {
@@ -43,6 +31,17 @@ axios.interceptors.request.use(function (config) {
     return Promise.reject(error);
 });
 
+
+var session_url = `http://${API_PATH}/authentication/authenticate`;
+var uname = "dylan";
+var pass = "12345";
+
+// on console log le data qu'on envoit (du moins j'espère)
+// eslint-disable-next-line no-console
+console.log(Qs.parse({
+    "\"username\"": uname,
+    "\"password\"": pass
+}));
 
 // fonction d'authentification
 // appelée à la création de App.vue
