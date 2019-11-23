@@ -9,10 +9,14 @@
 <script>
 import MoviesResultSet from "@/components/movies/MoviesResultSet";
 
+
 export default {
   name: 'app',
   components: {
-    MoviesResultSet,
+    MoviesResultSet
+  },
+  created() {
+
   }
 }
 </script>

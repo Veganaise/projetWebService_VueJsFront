@@ -10,18 +10,20 @@
 <script>
     import Movie from "@/components/movies/Movie";
     import {getMovies} from "@/services/movies.services";
+
     export default {
         name: "moviesResultSet",
         components: {Movie},
-        data(){
-            return{
-                pokemons: [] //init avec tableau vide
-            }
-        },
         created() { //appelé a la création du component
-            getMovies().then(()=>{
-                this.$store.dispatch('fetchMovies');
-            })
+
+            getMovies()
+                .then(()=>{
+                    this.$store.dispatch('fetchMovies');
+                })
+                .catch((error)=>{
+                    // eslint-disable-next-line no-console
+                    console.log(error.message)
+                })
         },
         computed: {
             movies(){
