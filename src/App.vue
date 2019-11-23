@@ -8,7 +8,7 @@
 
 <script>
 import MoviesResultSet from "@/components/movies/MoviesResultSet";
-import {authenticate} from "@/services/http-commons";
+
 
 export default {
   name: 'app',
@@ -16,8 +16,7 @@ export default {
     MoviesResultSet
   },
   created() {
-    // authentification auprès du serveur / instanciation d'axios avec webtokens
-    authenticate();
+
   }
 }
 </script>
