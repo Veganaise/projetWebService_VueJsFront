@@ -9,21 +9,13 @@
 
 <script>
     import Movie from "@/components/movies/Movie";
-    import {getMovies} from "@/services/movies.services";
+    // import {getMovies} from "@/services/movies.services";
 
     export default {
         name: "moviesResultSet",
         components: {Movie},
         created() { //appelé a la création du component
-
-            getMovies()
-                .then(()=>{
-                    this.$store.dispatch('fetchMovies');
-                })
-                .catch((error)=>{
-                    // eslint-disable-next-line no-console
-                    console.log(error.message)
-                })
+            this.$store.dispatch('fetchMovies');
         },
         computed: {
             movies(){

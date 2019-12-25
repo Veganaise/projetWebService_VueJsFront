@@ -1,18 +1,17 @@
 import axios from 'axios'; //outil d'envoi de requètes
- import Qs from 'qs' //outil de parse et stringify de JSON
+import Qs from 'qs' //outil de parse et stringify de JSON
 import {API_PATH} from "../config/config";
+//import store from '../movieStore';
 
 // instanciation d'axios
 const axiosCreate =axios.create({
     baseURL: `http://${API_PATH}`,
     //timeout: 10000,
     headers: {
-        "Access-Control-Allow-Origin" : "*", // pas sur que ce soit utile
-
+        "Access-Control-Allow-Origin" : "*",
         //pour dire au serveur que le data est du json
         "Content-Type" : "application/json",
-
-        Authorization: ' '
+        Authorization: ''
     },
     //withCredentials: true
 });
@@ -25,63 +24,49 @@ export var HTTP = (function () {
            if(!axios_instance){
                axios_instance=axiosCreate;
            }
+           // Pour voir ce qu'il se passe à chaque requête
+           //axios_instance.interceptors.request.use(interceptorValid, interceptorError);
            return axios_instance;
        }
    }
 })();
 
-// Add a request interceptor
-axios.interceptors.request.use(function (config) {
-    // affiche la config d'axios pour la requçete interceptée
-    // eslint-disable-next-line no-console
-    console.log("intercept: "+Qs.stringify(config));
-    // eslint-disable-next-line no-console
-    console.log(config.data);
+// // Add a request interceptor
+// function interceptorValid(config) {
+//     // affiche la config d'axios pour la requçete interceptée
+// // eslint-disable-next-line no-console
+// console.log("intercept: "+config);
+// for(let key in config) {
+//     // eslint-disable-next-line no-console
+//     console.log(key, "|", config[key]);
+// }
+// // eslint-disable-next-line no-console
+// console.log(config.data);
+//
+// return config;
+// }
+// function interceptorError(error) {
+//     // Do something with request error
+//     return Promise.reject(error);
+// }
 
-    return config;
-}, function (error) {
-    // Do something with request error
-    return Promise.reject(error);
-});
+const AUTH_BASE_ROUTE = "authentication";
 
+export const authenticate = function(username, password) {
+    return new Promise((resolve, reject) => {
+        const instance = HTTP.getInstance();
+        instance.post(`${AUTH_BASE_ROUTE}/authenticate`, Qs.parse({
+            "username": username,
+            "password": password
+        })).then((response) => {
+            instance.AUTH_TOKEN = response.data.token;
+            instance.defaults.headers['Authorization'] = `Bearer ${instance.AUTH_TOKEN}`;
 
-var session_url = `authentication/authenticate`;
-var uname = "dylan";
-var pass = "12345";
-
-export var authentication_is_ok = false;
-
-// fonction d'authentification
-// appelée à la création de App.vue
-export const authenticate= () =>{
-    // we only do the post request if the authentication haven't happened yet
-    if(authentication_is_ok) return  Promise.resolve();
-    HTTP.getInstance().post(session_url, Qs.parse({
-        "username": uname,
-        "password": pass
-    }))
-        .then(function(response) {
-            // on ajoute le webtoken aux headers de l'instance d'axios
-            const axiosInst = HTTP.getInstance();
-            axiosInst.AUTH_TOKEN=response.data.token;
-            //axiosInst.headers={'authorization' : 'Bearer '+ axiosInst.AUTH_TOKEN };
-            axiosInst.defaults.headers.common['authorization'] = ('Bearer '+ axiosInst.AUTH_TOKEN).trim();
-            authentication_is_ok=true;
-
+            resolve(instance.AUTH_TOKEN);
+        }).catch((error) => {
             // eslint-disable-next-line no-console
-            console.log('Authenticated: '+ axiosInst.defaults.headers.common['authorization']);
-
-            return  Promise.resolve();
-
-        }).catch(error =>{
-            // eslint-disable-next-line no-console
-            console.log('Error on Authentication: '+error+"\n axios config was : "+Qs.stringify(error.config));
-            return  Promise.reject();
-        }
-    );
-
+            console.log(`Error on authentication: ${error}\nAxios config was: ${Qs.stringify(error.config)}`);
+            reject(error);
+        })
+    })
 };
-
-
-
-
