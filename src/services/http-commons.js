@@ -4,7 +4,7 @@ import {API_PATH} from "../config/config";
 //import store from '../movieStore';
 
 // instanciation d'axios
-const axiosCreate =axios.create({
+const axiosCreate = axios.create({
     baseURL: `http://${API_PATH}`,
     //timeout: 10000,
     headers: {
@@ -61,7 +61,6 @@ export const authenticate = function(username, password) {
         })).then((response) => {
             instance.AUTH_TOKEN = response.data.token;
             instance.defaults.headers['Authorization'] = `Bearer ${instance.AUTH_TOKEN}`;
-
             resolve(instance.AUTH_TOKEN);
         }).catch((error) => {
             // eslint-disable-next-line no-console

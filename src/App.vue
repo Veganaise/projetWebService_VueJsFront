@@ -1,23 +1,25 @@
 <template>
-  <div id="app">
-    <img class="img" alt="Vue logo" src="./assets/images/background.jpg">
-    <h1> Projet WebServices sur le 7ème art! 🍿 </h1>
-    <MoviesResultSet/>
+  <div class="layout" style="background-color: #BB0B0B;">
+    <Menu/>
+
+    <div class="content-wrapper">
+      <router-view></router-view>
+    </div>
+
+    <Footer/>
   </div>
 </template>
 
 <script>
-import MoviesResultSet from "@/components/movies/MoviesResultSet";
-
+import Menu from './components/menu/Menu'
+import Footer from './components/Footer'
 
 export default {
   name: 'app',
   components: {
-    MoviesResultSet
+    Menu,
+    Footer
   },
-  created() {
-
-  }
 }
 </script>
 
@@ -30,11 +32,20 @@ export default {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-align: center;
-    color: #2c3e50;
+    color: #000000;
     margin-top: 60px;
   }
-  .img{
-    max-width: 100%;
-    max-height: 900px;
+
+  footer {
+    clear: both;
+    position: relative;
+    height: 200px;
+    margin-top: -200px;
+  }
+
+  .layout {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
   }
 </style>
