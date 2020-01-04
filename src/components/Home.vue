@@ -2,7 +2,7 @@
     <div class="home">
         <h1> Projet WebServices - Le 7ème art ! 🍿 </h1>
         <br />
-        <img class="img" alt="Vue logo" src="../assets/images/cinema.jpg">
+        <img alt="cinema" src="../assets/images/cinema.jpg">
     </div>
 </template>
 
@@ -13,9 +13,11 @@
 </script>
 
 <style scoped>
-    .img{
+    img{
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
         max-width: 100%;
-        max-height: 900px;
     }
 
     h1 {

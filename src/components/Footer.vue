@@ -1,7 +1,7 @@
 <template>
     <div class="container-fluid footer">
         <p>&copy; {{ new Date().getFullYear() }} — <strong>Tous droits réservés</strong></p>
-        <p>Réalisé par : GANNE Antoine, MARSANGY Dylan, Laura PHILIBERT, Alicia ROCCHIA et Pierre-Eliott THIBOUD</p>
+        <p>Réalisé par : GANNE Antoine, MARSANGY Dylan, PHILIBERT Laura, ROCCHIA Alicia et THIBOUD Pierre-Eliott</p>
     </div>
 </template>
 

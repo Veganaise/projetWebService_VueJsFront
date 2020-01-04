@@ -1,29 +1,13 @@
 import MoviesService from "../services/movies.services";
-//import {authenticate} from "@/services/http-commons";
 
-const state = { //état initial
+const state = { // état initial
     movies: {},
-    /*user: {
-        login: "dylan",
-        password: "12345"
-    },
-    token: undefined*/
 };
 
 const getters = {
     fetchMovies: (state) => {
         return state.movies
     },
-
-    /*movies(state) {
-        return state.movies;
-    },*/
-    /*authorizationHeader(state) {
-        return state.token; // Get
-    },
-    authenticated(state) {
-        return !!state.token; // Check whether there is a stored token or not
-    }*/
 };
 
 const actions = {
@@ -35,13 +19,7 @@ const actions = {
             commit('fetchMoviesFailure', {error: e})
             return false
         }
-       /* getMovies().then(
-            (movies) => commit('fetchMovies', movies)
-        );*/
-    },
-    /*authenticate( {state, commit} ) {
-        return authenticate(state.user.login, state.user.password).then( (token) => commit('authenticate', token) );
-    }*/
+    }
 };
 
 const mutations = {
@@ -51,9 +29,6 @@ const mutations = {
     fetchMoviesFailure(state, error) {
         state.movies = { error }
     }
-    /*authenticate(state,payload){
-        state.token=payload;
-    }*/
 };
 
 export const movies = {

@@ -1,6 +1,7 @@
 import axios from 'axios'; //outil d'envoi de requètes
 import Qs from 'qs' //outil de parse et stringify de JSON
 import {API_PATH} from "../config/config";
+import TokenService from "./storage.service";
 //import store from '../movieStore';
 
 // instanciation d'axios
@@ -11,7 +12,7 @@ const axiosCreate = axios.create({
         "Access-Control-Allow-Origin" : "*",
         //pour dire au serveur que le data est du json
         "Content-Type" : "application/json",
-        Authorization: ''
+        Authorization: TokenService.getToken()
     },
     //withCredentials: true
 });
@@ -22,7 +23,7 @@ export var HTTP = (function () {
     return {
        getInstance: function () {
            if(!axios_instance){
-               axios_instance=axiosCreate;
+               axios_instance = axiosCreate;
            }
            // Pour voir ce qu'il se passe à chaque requête
            //axios_instance.interceptors.request.use(interceptorValid, interceptorError);
@@ -50,7 +51,7 @@ export var HTTP = (function () {
 //     return Promise.reject(error);
 // }
 
-const AUTH_BASE_ROUTE = "authentication";
+/*const AUTH_BASE_ROUTE = "authentication";
 
 export const authenticate = function(username, password) {
     return new Promise((resolve, reject) => {
@@ -68,4 +69,24 @@ export const authenticate = function(username, password) {
             reject(error);
         })
     })
+};*/
+
+const AuthenticateService = {
+    authenticate: async function(username, password) {
+        const instance = HTTP.getInstance();
+        try {
+            return await instance.post('authentication/authenticate', Qs.parse({
+                "username": username,
+                "password": password
+            }))
+        } catch(error) {
+            throw new error
+        }
+    },
+
+    logout() {
+        TokenService.removeToken()
+    }
 };
+
+export default AuthenticateService

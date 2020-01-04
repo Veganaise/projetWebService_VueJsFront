@@ -48,4 +48,12 @@ export default {
     flex-direction: column;
     justify-content: space-between;
   }
+
+  html {
+    background-color: #BB0B0B;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+  }
 </style>

@@ -1,7 +1,7 @@
 import {API_PATH} from "../config/config";
 import {HTTP} from './http-commons'
-import {auth} from '../store/auth.module'
-import {authenticate} from '../services/http-commons'
+//import {auth} from '../store/auth.module'
+//import {authenticate} from '../services/http-commons'
 //import { store } from '../main'
 import Qs from 'qs' //outil de parse et stringify de JSON
 
@@ -9,8 +9,7 @@ import Qs from 'qs' //outil de parse et stringify de JSON
 // nécessite que l'on se soit authentifié
 const MoviesService = {
     fetchMovies: async function() {
-        await authenticate(auth.state.user.login, auth.state.user.password)
-
+        //await authenticate(auth.state.user.username, auth.state.user.password)
         return await HTTP.getInstance()
             .get(`http://${API_PATH}/movies/getMovies`)
             .then(response => Qs.parse(response.data))

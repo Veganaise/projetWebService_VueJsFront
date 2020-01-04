@@ -12,7 +12,7 @@
                         <template v-slot:button-content>Genres</template>
                         <b-dropdown-item href="#">Comédie</b-dropdown-item>
                     </b-nav-item-dropdown>-->
-                    <b-nav-item href="#">Acteurs</b-nav-item>
+                    <b-nav-item href="/actors">Acteurs</b-nav-item>
                     <b-nav-item href="#">Administration</b-nav-item>
                 </b-navbar-nav>
 
@@ -26,8 +26,9 @@
                         <template v-slot:button-content>
                             <em>User</em>
                         </template>
-                        <b-dropdown-item href="#">Profile</b-dropdown-item>
-                        <b-dropdown-item href="#">Sign Out</b-dropdown-item>
+                        <b-dropdown-item href="/login">Sign In</b-dropdown-item>
+                        <!--<b-dropdown-item href="#">Profile</b-dropdown-item>-->
+                        <b-dropdown-item href="/" v-on:click="logoutSubmit()">Sign Out</b-dropdown-item>
                     </b-nav-item-dropdown>
                 </b-navbar-nav>
             </b-collapse>
@@ -37,11 +38,20 @@
 </template>
 
 <script>
+    import { mapGetters, mapActions } from 'vuex'
 
     export default {
         name: "Menu",
-        components: {
-        }
+        computed: {
+          ...mapGetters('auth', ['loggedIn']),
+        },
+        methods: {
+            ...mapActions('auth', ['logout']),
+
+            logoutSubmit() {
+                this.logout()
+            }
+        },
     }
 </script>
 

@@ -3,12 +3,11 @@
         <h2>Liste des films</h2>
         <div>
             <div v-for="movie in movies" :key="movie.id">
-                <b-card class="movie-card" bg-variant="dark" text-variant="white" v-for="(element, index) in movie.items" :key="index" :title="movie.titre">
+                <b-card class="movie-card" bg-variant="dark" text-variant="white" v-for="(element, index) in movie.items" :key="index" :title="element.titre">
                     <template v-slot:header>
                         <h4 class="mb-0">Film n°{{element.noFilm}}</h4>
                     </template>
                     <b-card-body>
-                        <b-card-title>{{element.titre}}</b-card-title>
                         <b-card-sub-title>Durée : {{element.duree}}</b-card-sub-title>
                     </b-card-body>
                     <b-list-group flush>

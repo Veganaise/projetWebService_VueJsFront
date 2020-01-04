@@ -1,33 +1,84 @@
-import {authenticate} from "@/services/http-commons";
+import TokenService from '../services/storage.service'
+import AuthenticateService from "../services/http-commons";
+import router from '../router'
 
 const state = {
-    user: {
+    /*user: {
         login: "dylan",
         password: "12345"
     },
-    token: undefined
+    token: undefined*/
+    authenticating: false,
+    accessToken: TokenService.getToken(),
+    authenticationErrorCode: 0,
+    authenticationError: '',
+    authenticationSuccess: false,
 };
 
 const getters = {
-    authorizationHeader(state) {
-        return state.token; // Get
+    loggedIn: (state) => {
+        return state.accessToken != null
     },
-    authenticated(state) {
-        return !!state.token; // Check whether there is a stored token or not
+
+    authenticationErrorCode: (state) => {
+        return state.authenticationErrorCode
+    },
+
+    authenticationError: (state) => {
+        return state.authenticationError
+    },
+
+    authenticationSuccess: (state) => {
+        return state.authenticationSuccess
+    },
+
+    authenticating: (state) => {
+        return state.authenticating
     }
 };
 
 const actions = {
-    authenticate( {state, commit} ) {
-        return authenticate(state.user.login, state.user.password)
-            .then( (token) => commit('authenticate', token));
+    async authenticate( {commit}, {username, password}) {
+        commit('authenticateRequest')
+        try {
+            const response = await AuthenticateService.authenticate(username, password)
+            // eslint-disable-next-line no-console
+            console.log(response)
+            commit('authenticateSuccess', response.data.token)
+            TokenService.saveToken(response.data.token)
+            await router.push('/')
+        } catch (e) {
+            commit('authenticateFailure', {errorCode : e.errorCode, errorMessage: e.message})
+            return false
+        }
+    },
+
+    logout({commit}) {
+        AuthenticateService.logout()
+        commit('logoutSuccess')
+        router.push('/')
     }
 };
 
 const mutations = {
-    authenticate(state, payload){
-        state.token = payload;
-    }
+    authenticateRequest(state) {
+        state.authenticating = true
+        state.authenticationError = ''
+        state.authenticationErrorCode = 0
+    },
+    authenticateSuccess(state, accessToken) {
+        state.accessToken = accessToken
+        state.authenticating = false
+        state.authenticationSuccess = true
+    },
+    authenticateFailure(state, {errorCode, errorMessage}) {
+        state.authenticating = false
+        state.authenticationErrorCode = errorCode
+        state.authenticationError = errorMessage
+    },
+    logoutSuccess(state) {
+        state.accessToken = ''
+    },
 };
 
 export const auth = {
