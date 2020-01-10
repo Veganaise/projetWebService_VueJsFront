@@ -3,11 +3,6 @@ import AuthenticateService from "../services/http-commons";
 import router from '../router'
 
 const state = {
-    /*user: {
-        login: "dylan",
-        password: "12345"
-    },
-    token: undefined*/
     authenticating: false,
     accessToken: TokenService.getToken(),
     authenticationErrorCode: 0,
@@ -42,8 +37,6 @@ const actions = {
         commit('authenticateRequest')
         try {
             const response = await AuthenticateService.authenticate(username, password)
-            // eslint-disable-next-line no-console
-            console.log(response)
             commit('authenticateSuccess', response.data.token)
             TokenService.saveToken(response.data.token)
             await router.push('/')
@@ -75,6 +68,7 @@ const mutations = {
         state.authenticating = false
         state.authenticationErrorCode = errorCode
         state.authenticationError = errorMessage
+        state.authenticationSuccess = false
     },
     logoutSuccess(state) {
         state.accessToken = ''

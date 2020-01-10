@@ -10,6 +10,8 @@ const axiosCreate = axios.create({
     //timeout: 10000,
     headers: {
         "Access-Control-Allow-Origin" : "*",
+        "Access-Control-Allow-Methods" : "GET, PUT, POST, DELETE, HEAD",
+        "Access-Control-Allow-Headers" : "*",
         //pour dire au serveur que le data est du json
         "Content-Type" : "application/json",
         Authorization: TokenService.getToken()

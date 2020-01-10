@@ -13,7 +13,7 @@
                         <b-dropdown-item href="#">Comédie</b-dropdown-item>
                     </b-nav-item-dropdown>-->
                     <b-nav-item href="/actors">Acteurs</b-nav-item>
-                    <b-nav-item href="#">Administration</b-nav-item>
+                    <b-nav-item href="/users">Administration</b-nav-item>
                 </b-navbar-nav>
 
                 <b-navbar-nav class="ml-auto">

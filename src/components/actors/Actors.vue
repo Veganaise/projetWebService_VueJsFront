@@ -10,20 +10,12 @@
                     <b-list-group flush>
                         <b-list-group-item variant="dark">Date de naissance : {{element.dateNaiss}}</b-list-group-item>
                         <b-list-group-item variant="dark">Date de décés : {{element.dateDeces}}</b-list-group-item>
-                        <b-list-group-item variant="dark">{{getCharacters(element)}} Personnages :
-                            <p v-for="character in element.actorCharacters" :key="character.nomPers">
-                                {{character.nomPers}}
-                                <!--<div v-for="(elem, ind) in character.items" :key="ind">Personnages : {{elem}}</div>-->
+                        <b-list-group-item variant="dark"> {{getCharacters(element)}} Personnages :
+                            <p v-for="(character, ind) in element.items" :key="ind">
+                                {{character}}
                             </p>
                         </b-list-group-item>
                     </b-list-group>
-                    <!--<div v-if="displayCharacters">
-                        <b-list-group v-for="character in element.actorCharacters" :key="character.nomPers">
-                            <b-list-group-item variant="dark" v-for="(elem, ind) in character.items" :key="ind">Personnages : {{elem}}</b-list-group-item>
-                        </b-list-group>
-                    </div>
-
-                    <b-button v-on:click="getCharacters(element)"></b-button>-->
                 </b-card>
             </div>
         </div>

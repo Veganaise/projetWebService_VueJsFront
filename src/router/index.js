@@ -4,6 +4,7 @@ import MoviesResultSet from '../components/movies/Movies'
 import Home from '../components/Home'
 import Login from '../components/Login'
 import Actors from '../components/actors/Actors'
+import Administration from "../components/Administration";
 import store from '../store/index'
 //import App from "../App";
 
@@ -29,6 +30,11 @@ const routes = [
         path: '/actors',
         name: 'Actors',
         component: Actors
+    },
+    {
+        path: '/users',
+        name: 'Administration',
+        component: Administration
     }
 ]
 
