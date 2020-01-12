@@ -3,6 +3,7 @@ import Vuex from 'vuex'
 import router from './router'
 import App from './App.vue'
 import store from './store'
+import Ionic from '@ionic/vue'
 //import {actions, getters, mutations, state} from "./store/movies.module.js";
 
 import BootstrapVue from 'bootstrap-vue'
@@ -14,6 +15,7 @@ import 'bootstrap-vue/dist/bootstrap-vue.css'
 Vue.config.productionTip = false; // <- utile? créé automatiquement par webstorm
 Vue.use(Vuex);
 Vue.use(BootstrapVue);
+Vue.use(Ionic);
 
 //export const store = new Vuex.Store(auth);
 

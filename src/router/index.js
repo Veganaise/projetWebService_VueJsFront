@@ -1,14 +1,16 @@
 import Vue from 'vue'
-import VueRouter from 'vue-router'
+// import VueRouter from 'vue-router'
 import MoviesResultSet from '../components/movies/Movies'
 import Home from '../components/Home'
 import Login from '../components/Login'
 import Actors from '../components/actors/Actors'
 import Administration from "../components/Administration";
 import store from '../store/index'
+import { IonicVueRouter } from '@ionic/vue'
 //import App from "../App";
 
-Vue.use(VueRouter)
+// Vue.use(VueRouter)
+Vue.use(IonicVueRouter);
 
 const routes = [
     {
@@ -36,12 +38,13 @@ const routes = [
         name: 'Administration',
         component: Administration
     }
-]
+];
 
-const router = new VueRouter({
+// const router = new VueRouter({
+const router = new IonicVueRouter({
     mode: 'history',
     routes
-})
+});
 
 router.beforeEach((to, from, next) => {
     const publicPages = ['/login', '/']
