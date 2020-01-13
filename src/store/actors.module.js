@@ -1,7 +1,7 @@
 import ActorsService from '../services/actors.service'
 
 const state = {
-    actors: {},
+    all: {},
 };
 
 const getters = {
@@ -37,17 +37,17 @@ const actions = {
 
 const mutations = {
     fetchActorsSuccess(state, actors) {
-        state.actors = { items: actors};
+        state.all = { items: actors};
     },
     fetchActorsFailure(state, error) {
-        state.actors = { error }
+        state.all = { error }
     },
 
     getActorCharactersSuccess(state, actorCharacters) {
-        state.actors.items.actorCharacters = {items: actorCharacters}
+        state.all.items.actorCharacters = {items: actorCharacters}
     },
     getActorCharactersFailure(state, error) {
-        state.actors.items.actorCharacters = { error }
+        state.all.items.actorCharacters = { error }
     },
 };
 

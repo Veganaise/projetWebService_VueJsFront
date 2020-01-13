@@ -1,7 +1,8 @@
 import MoviesService from "../services/movies.services";
+import router from "../router";
 
 const state = { // état initial
-    movies: {},
+    movies: {}
 };
 
 const getters = {
@@ -19,7 +20,70 @@ const actions = {
             commit('fetchMoviesFailure', {error: e})
             return false
         }
-    }
+    },
+
+    async createMovie({commit}, {titre, duree, dateSortie, budget, montantRecette, noRea, codeCat}) {
+        try {
+            await MoviesService.createMovie(titre, duree, dateSortie, budget, montantRecette, noRea, codeCat)
+            commit('createMovieSuccess')
+            return await router.go(0)
+        } catch (e) {
+            commit('createMovieFailure', {error: e})
+            return false
+        }
+    },
+
+    async getAMovie({commit}, noFilm) {
+        try {
+            const movie = await MoviesService.getAMovie(noFilm)
+            commit('getAMovieSuccess', movie.data)
+        } catch (e) {
+            commit('getAMovieFailure', {error: e})
+            return false
+        }
+    },
+
+    async editMovie({commit}, {movie, noFilm, titre, duree, dateSortie, budget, montantRecette, noRea, codeCat}) {
+        try {
+            await MoviesService.editMovie(noFilm, titre, duree, dateSortie, budget, montantRecette, noRea, codeCat)
+            commit('editMovieSuccess', movie)
+        } catch(e) {
+            commit('editMovieFailure', {error: e})
+            return false
+        }
+    },
+
+    async deleteMovie({commit}, noFilm) {
+        try {
+            await MoviesService.deleteMovie(noFilm)
+            commit('deleteMovieSuccess', noFilm)
+            return await router.go(0)
+        } catch (e) {
+            commit('deleteMovieFailure', {error: e})
+            return false
+        }
+    },
+
+    /*async getMoviesDirector({commit}, noRea) {
+        try {
+            const director = await MoviesService.getMoviesDirector(noRea)
+            commit('getMovieDirectorSuccess', director.data)
+        } catch (e) {
+            commit('getMovieDirectorFailure', {error: e})
+            return false
+        }
+    },
+
+    async getMoviesCat({commit}, codeCat) {
+        try {
+            const cat = await MoviesService.getMoviesCat(codeCat)
+            commit('getMovieCatSuccess', cat.data)
+        } catch(e) {
+            commit('getMovieCatFailure', {error: e})
+            return false
+        }
+    }*/
+
 };
 
 const mutations = {
@@ -28,7 +92,39 @@ const mutations = {
     },
     fetchMoviesFailure(state, error) {
         state.movies = { error }
-    }
+    },
+
+    createMovieSuccess(state) {
+        state.movies = { items: movies }
+    },
+    createMovieFailure(state, { error }) {
+        state.movies = { error }
+    },
+
+    getAMovieSuccess(state, movie) {
+        state.movies.movieSelected = {movie}
+    },
+    getAMovieFailure(state, error) {
+        state.movies.movieSelected = {error}
+    },
+
+    editMovieSuccess(state, movie) {
+        Object.keys(state.movies.items).forEach(m => {
+            if(m.noFilm === movie.noFilm) {
+                m = movie
+            }
+        });
+    },
+    editMovieFailure(state, error) {
+        state.movies = { error }
+    },
+
+    deleteMovieSuccess(state, noFilm) {
+        state.movies.items = Object.keys(state.movies.items).filter(movie => movie.noFilm !== noFilm)
+    },
+    deleteUserFailure(state, error) {
+        state.movies = {error}
+    },
 };
 
 export const movies = {

@@ -6,6 +6,9 @@
       <router-view></router-view>
     </div>
 
+    <br />
+    <br />
+
     <Footer/>
   </div>
 </template>
@@ -36,20 +39,16 @@ export default {
     margin-top: 60px;
   }
 
-  footer {
-    clear: both;
-    position: relative;
-    height: 200px;
-    margin-top: -200px;
-  }
-
   .layout {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    min-height: 100%;
   }
 
-  html {
+  html, body {
+    height: 100%;
+    min-height: 100%;
     background-color: #BB0B0B;
     -webkit-background-size: cover;
     -moz-background-size: cover;

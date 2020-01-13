@@ -11,8 +11,8 @@
                         <b-list-group-item variant="dark">Date de naissance : {{element.dateNaiss}}</b-list-group-item>
                         <b-list-group-item variant="dark">Date de décés : {{element.dateDeces}}</b-list-group-item>
                         <b-list-group-item variant="dark"> {{getCharacters(element)}} Personnages :
-                            <p v-for="(character, ind) in element.items" :key="ind">
-                                {{character}}
+                            <p v-for="(character, ind) in element.actorCharacters" :key="ind">
+                                {{character.nomPers}}
                             </p>
                         </b-list-group-item>
                     </b-list-group>
