@@ -56,7 +56,7 @@
                                     <option v-for="(element, index) in director.items" :key="index" :value="element.noRea">{{element.prenRea}} {{element.nomRea}}</option>
                                 </b-form-select></p>
                                 <!--Input pour modifier un film-->
-                                <p v-if="!creating && editing">Réalisateur<b-form-select class="h-100" name="editReal" v-for="director in directors" :key="director.noRea" v-model="movieToEdit.realisateurByNoRea.noRea">
+                                <p v-if="!creating && editing">Réalisateur<b-form-select class="h-100" name="editReal" v-for="director in directors" :key="director.noRea" v-model="movieToEdit.noRea">
                                     <option v-for="(element, index) in director.items" :key="index" :value="element.noRea">{{element.prenRea}} {{element.nomRea}}</option>
                                 </b-form-select></p>
                             </div>
@@ -66,7 +66,7 @@
                                     <option v-for="(element, index) in category.items" :key="index" :value="element.codeCat">{{element.libelleCat}}</option>
                                 </b-form-select></p>
                                 <!--Input pour modifier un film-->
-                                <p v-if="!creating && editing">Catégorie<b-form-select class="h-100" name="editCat" v-for="category in categories" :key="category.codeCat" v-model="movieToEdit.categorieByCodeCat.codeCat">
+                                <p v-if="!creating && editing">Catégorie<b-form-select class="h-100" name="editCat" v-for="category in categories" :key="category.codeCat" v-model="movieToEdit.codeCat">
                                     <option v-for="(element, index) in category.items" :key="index" :value="element.codeCat">{{element.libelleCat}}</option>
                                 </b-form-select></p>
                             </div>
@@ -200,15 +200,20 @@
 
             async confirmEditMovie(noFilm) {
                 await this.getAMovie(noFilm)
-
-                if(this.this.movies.movies.movieSelected.movie.noFilm === this.movieToEdit.noFilm) {
-                    if(this.movies.movies.movieSelected.movie.titre !== this.movieToEdit.titre
-                        || this.movies.movies.movieSelected.movie.duree !== this.movieToEdit.duree
-                        || this.movies.movies.movieSelected.movie.dateSortie !== this.movieToEdit.dateSortie
-                        || this.movies.movies.movieSelected.movie.budget !== this.movieToEdit.budget
-                        || this.movies.movies.movieSelected.movie.montantRecette !== this.movieToEdit.montantRecette
-                        || this.movies.movies.movieSelected.movie.noRea !== this.movieToEdit.noRea
-                        || this.movies.movies.movieSelected.movie.codeCat !== this.movieToEdit.codeCat) {
+                // eslint-disable-next-line no-console
+                console.log(this.movies.movies.movieSelected)
+                // eslint-disable-next-line no-console
+                console.log(this.movieToEdit)
+                if(this.movies.movies.movieSelected.movie.noFilm === this.movieToEdit.noFilm) {
+                    if(this.movies.movies.movieSelected.movie.titre !== this.movieToEdit.titre && this.movieToEdit.titre !== ''
+                        || this.movies.movies.movieSelected.movie.duree !== this.movieToEdit.duree && this.movieToEdit.duree !== ''
+                        || this.movies.movies.movieSelected.movie.dateSortie !== this.movieToEdit.dateSortie && this.movieToEdit.dateSortie !== ''
+                        || this.movies.movies.movieSelected.movie.budget !== this.movieToEdit.budget && this.movieToEdit.budget !== ''
+                        || this.movies.movies.movieSelected.movie.montantRecette !== this.movieToEdit.montantRecette && this.movieToEdit.montantRecette !== ''
+                        || this.movies.movies.movieSelected.movie.noRea !== this.movieToEdit.noRea && this.movieToEdit.noRea !== ''
+                        || this.movies.movies.movieSelected.movie.codeCat !== this.movieToEdit.codeCat && this.movieToEdit.codeCat !== '') {
+                        this.editing = false
+                        this.showModalCreateOrEditMovie = false
                         return this.editMovie({movie: this.movies.movies.movieSelected.movie, noFilm: this.movieToEdit.noFilm, titre: this.movieToEdit.titre,
                             duree: this.movieToEdit.duree, dateSortie: this.movieToEdit.dateSortie, budget: this.movieToEdit.budget,
                             montantRecette: this.movieToEdit.montantRecette, noRea: this.movieToEdit.noRea, codeCat: this.movieToEdit.codeCat})
