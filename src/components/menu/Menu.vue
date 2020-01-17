@@ -7,11 +7,7 @@
             <b-collapse id="nav-collapse" is-nav>
                 <b-navbar-nav>
                     <b-nav-item href="/movies">Films</b-nav-item>
-                    <b-nav-item href="#">Genres</b-nav-item>
-                   <!-- <b-nav-item-dropdown right>
-                        <template v-slot:button-content>Genres</template>
-                        <b-dropdown-item href="#">Comédie</b-dropdown-item>
-                    </b-nav-item-dropdown>-->
+                    <b-nav-item href="/categories">Catégories</b-nav-item>
                     <b-nav-item href="/actors">Acteurs</b-nav-item>
                     <b-nav-item href="/users">Administration</b-nav-item>
                 </b-navbar-nav>

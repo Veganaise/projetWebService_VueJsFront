@@ -29,7 +29,7 @@ const CategoriesService = {
         }
     },
 
-    updateCategory: async function(codeCat, libelleCat, image) {
+    editCategory: async function(codeCat, libelleCat, image) {
         try {
             return await HTTP.getInstance().put(`http://${API_PATH}/categories/updateCategory`, {codeCat, libelleCat, image})
         } catch (error) {

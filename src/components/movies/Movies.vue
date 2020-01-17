@@ -89,25 +89,55 @@
 
         <b-button v-b-modal.modal-1 class="float-right" v-on:click="onClickCreateMovie()">Créer un film</b-button>
         <br />
-        <h2>Liste des films</h2>
-        <div>
-            <div v-for="movie in movies" :key="movie.noFilm">
-                <b-card class="movie-card" bg-variant="dark" text-variant="white" v-for="(element, index) in movie.items" :key="index" :title="element.titre">
-                    <template v-slot:header>
-                        <h4 class="mb-0">Film n°{{element.noFilm}}</h4>
-                        <img src="../../assets/icon/pencil-edit-button.png" @click="getAMovieToEdit(element)">
-                        <img src="../../assets/icon/rubbish-bin.png" @click="deleteAMovie(element.noFilm)">
-                    </template>
-                    <b-card-body>
-                        <b-card-sub-title>Durée : {{element.duree}}</b-card-sub-title>
-                    </b-card-body>
-                    <b-list-group flush>
-                        <b-list-group-item variant="dark">Date de sortie : {{element.dateSortie}}</b-list-group-item>
-                        <b-list-group-item variant="dark">Budget : {{element.budget}}</b-list-group-item>
-                        <b-list-group-item variant="dark">Montant de la recette : {{element.montantRecette}}</b-list-group-item>
-                        <router-link :to="`/movieDetails/${element.noFilm}`">Voir + d'info</router-link>
-                    </b-list-group>
-                </b-card>
+
+        <!--Affichage depuis l'onglet "Film" du menu-->
+        <div v-if="codeCatFromCategoriesPage === undefined">
+            <h2>Liste des films</h2>
+            <div>
+                <div v-for="movie in movies" :key="movie.noFilm">
+                    <b-card class="movie-card" bg-variant="dark" text-variant="white" v-for="(element, index) in movie.items" :key="index" :title="element.titre">
+                        <template v-slot:header>
+                            <h4 class="mb-0">Film n°{{element.noFilm}}</h4>
+                            <img src="../../assets/icon/pencil-edit-button.png" @click="getAMovieToEdit(element)">
+                            <img src="../../assets/icon/rubbish-bin.png" @click="deleteAMovie(element.noFilm)">
+                        </template>
+                        <b-card-body>
+                            <b-card-sub-title>Durée : {{element.duree}}</b-card-sub-title>
+                        </b-card-body>
+                        <b-list-group flush>
+                            <b-list-group-item variant="dark">Date de sortie : {{element.dateSortie}}</b-list-group-item>
+                            <b-list-group-item variant="dark">Budget : {{element.budget}}</b-list-group-item>
+                            <b-list-group-item variant="dark">Montant de la recette : {{element.montantRecette}}</b-list-group-item>
+                            <router-link :to="`/movieDetails/${element.noFilm}`">Voir + d'info</router-link>
+                        </b-list-group>
+                    </b-card>
+                </div>
+            </div>
+        </div>
+
+        <!-- Affichage depuis l'onglet "Catégories" du menu-->
+        <div v-if="codeCatFromCategoriesPage !== undefined">
+            <h2>Liste des films de la catégorie {{codeCatFromCategoriesPage}}</h2>
+            <a @click="showAllMovies()">Voir tous les films</a>
+            <div>
+                <div v-for="movie in movies" :key="movie.noFilm">
+                    <b-card class="movie-card" bg-variant="dark" text-variant="white" v-for="(element, index) in movie.items" :key="index" :title="element.titre">
+                        <template v-slot:header>
+                            <h4 class="mb-0">Film n°{{element.noFilm}}</h4>
+                            <img src="../../assets/icon/pencil-edit-button.png" @click="getAMovieToEdit(element)">
+                            <img src="../../assets/icon/rubbish-bin.png" @click="deleteAMovie(element.noFilm)">
+                        </template>
+                        <b-card-body>
+                            <b-card-sub-title>Durée : {{element.duree}}</b-card-sub-title>
+                        </b-card-body>
+                        <b-list-group flush>
+                            <b-list-group-item variant="dark">Date de sortie : {{element.dateSortie}}</b-list-group-item>
+                            <b-list-group-item variant="dark">Budget : {{element.budget}}</b-list-group-item>
+                            <b-list-group-item variant="dark">Montant de la recette : {{element.montantRecette}}</b-list-group-item>
+                            <router-link :to="`/movieDetails/${element.noFilm}`">Voir + d'info</router-link>
+                        </b-list-group>
+                    </b-card>
+                </div>
             </div>
         </div>
     </div>
@@ -134,12 +164,18 @@
 
                 editing: false,
                 movieToEdit: '',
+
+                codeCatFromCategoriesPage: this.$route.params.id,
             }
         },
         // Appelées à la création du component
         created() {
             // récupérer film
-            this.fetchMovies();
+            if(this.codeCatFromCategoriesPage === undefined) {
+                this.fetchMovies();
+            } else {
+                this.getMoviesFromCat(this.codeCatFromCategoriesPage)
+            }
             // récupérer réalisateurs
             this.fetchDirectors();
             // récupérer catégories
@@ -152,7 +188,7 @@
             ...mapState({characters: state => state.characters}),
         },
         methods: {
-            ...mapActions('movies', ['fetchMovies', 'createMovie', 'getAMovie', 'editMovie', 'deleteMovie']),
+            ...mapActions('movies', ['fetchMovies', 'createMovie', 'getAMovie', 'editMovie', 'deleteMovie', 'getMoviesFromCat']),
             ...mapActions('directors', ['fetchDirectors', 'getADirector']),
             ...mapActions('categories', ['fetchCategories', 'getACategory']),
 
@@ -160,6 +196,7 @@
             onClickCreateMovie() {
                 this.showModalCreateOrEditMovie = true
                 this.creating = true
+                this.codeCatFromCategoriesPage = undefined
             },
 
             confirmCreateMovie() {
@@ -180,6 +217,7 @@
                 this.movieToEdit = movie
                 this.editing = true
                 this.showModalCreateOrEditMovie = true
+                this.codeCatFromCategoriesPage = undefined
             },
 
             async confirmEditMovie(noFilm) {
@@ -210,6 +248,11 @@
                     return false
                 }
             },
+
+            showAllMovies() {
+                this.codeCatFromCategoriesPage = undefined
+                return this.fetchMovies()
+            }
         }
     }
 </script>

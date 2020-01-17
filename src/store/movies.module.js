@@ -72,17 +72,17 @@ const actions = {
             commit('getMovieDirectorFailure', {error: e})
             return false
         }
-    },
+    },*/
 
-    async getMoviesCat({commit}, codeCat) {
+    async getMoviesFromCat({commit}, codeCat) {
         try {
-            const cat = await MoviesService.getMoviesCat(codeCat)
-            commit('getMovieCatSuccess', cat.data)
+            const movies = await MoviesService.getMoviesFromCat(codeCat)
+            commit('getMoviesFromCatSuccess', movies.data)
         } catch(e) {
-            commit('getMovieCatFailure', {error: e})
+            commit('getMoviesFromCatFailure', {error: e})
             return false
         }
-    }*/
+    }
 
 };
 
@@ -123,6 +123,13 @@ const mutations = {
         state.movies.items = Object.keys(state.movies.items).filter(movie => movie.noFilm !== noFilm)
     },
     deleteMovieFailure(state, error) {
+        state.movies = {error}
+    },
+
+    getMoviesFromCatSuccess(state, movies) {
+        state.movies = {items : movies}
+    },
+    getMoviesFromCatFailure(state, error) {
         state.movies = {error}
     },
 };

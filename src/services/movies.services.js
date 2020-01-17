@@ -34,7 +34,7 @@ const MoviesService = {
         }
     },
 
-    getMovieCat: async function(codeCat) {
+    getMoviesFromCat: async function(codeCat) {
         try {
             return await HTTP.getInstance().get(`http://${API_PATH}/movies/getMovies/cat/${encodeURIComponent(codeCat)}`)
         } catch (error) {

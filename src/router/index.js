@@ -7,6 +7,7 @@ import Login from '../components/Login'
 import Actors from '../components/actors/Actors'
 import ActorDetails from '../components/actors/ActorDetails'
 import Administration from "../components/Administration";
+import Categories from "../components/categories/Categories";
 import store from '../store/index'
 //import App from "../App";
 
@@ -35,6 +36,11 @@ const routes = [
         component: MovieDetails
     },
     {
+      path: '/moviesCategory/:id',
+      name: 'Movies',
+      component: Movies
+    },
+    {
         path: '/actors',
         name: 'Actors',
         component: Actors
@@ -49,6 +55,11 @@ const routes = [
         path: '/users',
         name: 'Administration',
         component: Administration
+    },
+    {
+        path: '/categories',
+        name: 'Categories',
+        component: Categories
     }
 ]
 

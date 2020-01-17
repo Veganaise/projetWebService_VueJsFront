@@ -7,37 +7,37 @@
                     <div class="modal-container">
                         <div class="row">
                             <div class="col-md-12 ml-auto">
-                                <!--Titre modale pour créer un film-->
+                                <!--Titre modale pour créer un acteur-->
                                 <h1 v-if="creating && !editing">Créer un acteur</h1>
-                                <!--Titre modale pour modifier un film-->
+                                <!--Titre modale pour modifier un acteur-->
                                 <h1 v-if="!creating && editing">Modifier l'acteur n°{{actorToEdit.noAct}}</h1>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-6 ml-auto">
-                                <!--Input pour créer un film-->
+                                <!--Input pour créer un acteur-->
                                 <p v-if="creating && !editing">Nom<b-form-input class="h-100" type="text" name="nomAct" v-model="nomAct"/></p>
-                                <!--Input pour modifier un film-->
+                                <!--Input pour modifier un acteur-->
                                 <p v-if="!creating && editing">Nom<b-form-input class="h-100" type="text" name="editNomAct" v-model="actorToEdit.nomAct"/></p>
                             </div>
                             <div class="col-md-6 ml-auto">
-                                <!--Input pour créer un film-->
+                                <!--Input pour créer un acteur-->
                                 <p v-if="creating && !editing">Prénom<b-form-input class="h-100" type="text" name="prenAct" v-model="prenAct"/></p>
-                                <!--Input pour modifier un film-->
+                                <!--Input pour modifier un acteur-->
                                 <p v-if="!creating && editing">Prénom<b-form-input class="h-100" type="text" name="editPrenAct" v-model="actorToEdit.prenAct"/></p>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-6 ml-auto">
-                                <!--Input pour créer un film-->
+                                <!--Input pour créer un acteur-->
                                 <p v-if="creating && !editing">Date de naissance<b-form-input class="h-100" type="date" name="dateNaiss" v-model="dateNaiss"/></p>
-                                <!--Input pour modifier un film-->
+                                <!--Input pour modifier un acteur-->
                                 <p v-if="!creating && editing">Date de naissance<b-form-input class="h-100" type="date" name="editDateNaiss" v-model="actorToEdit.dateNaiss"/></p>
                             </div>
                             <div class="col-md-6 ml-auto">
-                                <!--Input pour créer un film-->
+                                <!--Input pour créer un acteur-->
                                 <p v-if="creating && !editing">Date de décés<b-form-input class="h-100" type="date" name="dateDeces" v-model="dateDeces"/></p>
-                                <!--Input pour modifier un film-->
+                                <!--Input pour modifier un acteur-->
                                 <p v-if="!creating && editing">Date de décés<b-form-input class="h-100" type="date" name="editDateDeces" v-model="actorToEdit.dateDeces"/></p>
                             </div>
                         </div>
@@ -49,7 +49,7 @@
                         </div>
 
                         <br/>
-                        <span v-if="actors.error" class="text-danger">ERROR: {{movies.error}}</span>
+                        <span v-if="actors.error" class="text-danger">ERROR: {{actors.error}}</span>
                     </div>
                 </div>
             </div>
