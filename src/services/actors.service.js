@@ -13,33 +13,31 @@ const ActorsService = {
         }
     },
 
-    getAnActor: async function(id) {
+    getAnActor: async function(noAct) {
+        return await HTTP.getInstance()
+            .get(`http://${API_PATH}/actors/getActor/${encodeURIComponent(noAct)}`)
+            .then(response => Qs.parse(response.data))
+    },
+
+    createActor: async function(nomAct, prenAct, dateNaiss, dateDeces) {
         try {
-            return await HTTP.getInstance().get(`http://${API_PATH}/actors/getActor/${encodeURIComponent(id)}`)
+            return await HTTP.getInstance().post(`http://${API_PATH}/actors/insertActor`, {nomAct, prenAct, dateNaiss, dateDeces})
         } catch (error) {
             throw error
         }
     },
 
-    createActor: async function(nomAct, prenAct, dateNaissance, dateDeces) {
+    editActor: async function(noAct, nomAct, prenAct, dateNaiss, dateDeces) {
         try {
-            return await HTTP.getInstance().post(`http://${API_PATH}/actors/insertActor`, {nomAct, prenAct, dateNaissance, dateDeces})
+            return await HTTP.getInstance().put(`http://${API_PATH}/actors/updateActor`, {noAct, nomAct, prenAct, dateNaiss, dateDeces})
         } catch (error) {
             throw error
         }
     },
 
-    updateActor: async function(nomAct, prenAct, dateNaissance, dateDeces) {
+    deleteActor: async function(noAct) {
         try {
-            return await HTTP.getInstance().put(`http://${API_PATH}/actors/updateActor`, {nomAct, prenAct, dateNaissance, dateDeces})
-        } catch (error) {
-            throw error
-        }
-    },
-
-    deleteActor: async function(id) {
-        try {
-            return await HTTP.getInstance().delete(`http://${API_PATH}/actors/deleteActor/${encodeURIComponent(id)}`)
+            return await HTTP.getInstance().delete(`http://${API_PATH}/actors/deleteActor/${encodeURIComponent(noAct)}`)
         } catch (error) {
             throw error
         }

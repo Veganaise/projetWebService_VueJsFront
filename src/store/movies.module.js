@@ -2,7 +2,7 @@ import MoviesService from "../services/movies.services";
 import router from "../router";
 
 const state = { // état initial
-    movies: {}
+    movies: {},
 };
 
 const getters = {
@@ -36,7 +36,7 @@ const actions = {
     async getAMovie({commit}, noFilm) {
         try {
             const movie = await MoviesService.getAMovie(noFilm)
-            commit('getAMovieSuccess', movie.data)
+            commit('getAMovieSuccess', movie)
         } catch (e) {
             commit('getAMovieFailure', {error: e})
             return false
@@ -122,7 +122,7 @@ const mutations = {
     deleteMovieSuccess(state, noFilm) {
         state.movies.items = Object.keys(state.movies.items).filter(movie => movie.noFilm !== noFilm)
     },
-    deleteUserFailure(state, error) {
+    deleteMovieFailure(state, error) {
         state.movies = {error}
     },
 };

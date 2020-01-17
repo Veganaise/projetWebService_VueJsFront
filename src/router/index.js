@@ -1,9 +1,11 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import MoviesResultSet from '../components/movies/Movies'
+import Movies from '../components/movies/Movies'
+import MovieDetails from '../components/movies/MovieDetails'
 import Home from '../components/Home'
 import Login from '../components/Login'
 import Actors from '../components/actors/Actors'
+import ActorDetails from '../components/actors/ActorDetails'
 import Administration from "../components/Administration";
 import store from '../store/index'
 //import App from "../App";
@@ -23,13 +25,25 @@ const routes = [
     },
     {
         path: '/movies',
-        name: 'MoviesResultSet',
-        component: MoviesResultSet
+        name: 'Movies',
+        component: Movies
+    },
+    {
+        path: '/movieDetails/:id',
+        props: true,
+        name: 'MovieDetails',
+        component: MovieDetails
     },
     {
         path: '/actors',
         name: 'Actors',
         component: Actors
+    },
+    {
+        path: '/actorDetails/:id',
+        props: true,
+        name: 'ActorDetails',
+        component: ActorDetails
     },
     {
         path: '/users',

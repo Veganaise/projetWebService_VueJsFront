@@ -7,6 +7,7 @@ import { actors } from './actors.module'
 import { users } from './users.module'
 import { categories } from './categories.module'
 import { directors } from './directors.module'
+import { characters } from './characters.module'
 
 Vue.use(Vuex)
 
@@ -17,7 +18,8 @@ const store = new Vuex.Store({
         actors,
         users,
         categories,
-        directors
+        directors,
+        characters
     },
 })
 

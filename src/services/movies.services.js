@@ -13,11 +13,9 @@ const MoviesService = {
     },
 
     getAMovie: async function(noFilm) {
-        try {
-            return await HTTP.getInstance().get(`http://${API_PATH}/movies/getMovie/${encodeURIComponent(noFilm)}`)
-        } catch (error) {
-            throw error
-        }
+        return await HTTP.getInstance()
+            .get(`http://${API_PATH}/movies/getMovie/${encodeURIComponent(noFilm)}`)
+            .then(response => Qs.parse(response.data))
     },
 
     createMovie: async function(titre, duree, dateSortie, budget, montantRecette, noRea, codeCat) {
@@ -52,9 +50,9 @@ const MoviesService = {
         }
     },
 
-    deleteMovie: async function(id) {
+    deleteMovie: async function(noFilm) {
         try {
-            return await HTTP.getInstance().delete(`http://${API_PATH}/movies/deleteMovie/${encodeURIComponent(id)}`)
+            return await HTTP.getInstance().delete(`http://${API_PATH}/movies/deleteMovie/${encodeURIComponent(noFilm)}`)
         } catch (error) {
             throw error
         }

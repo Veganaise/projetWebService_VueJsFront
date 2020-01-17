@@ -1,5 +1,5 @@
 <template>
-    <div class="moviesResultSet">
+    <div class="movies">
         <!--Modal to create a movie-->
         <transition name="modal" v-if="showModalCreateOrEditMovie">
             <div class="modal-mask">
@@ -74,7 +74,7 @@
                         <br/>
 
                         <div class="modal-buttons">
-                            <button class="modal-button" @click="hideCreateMovie()">Cancel</button>
+                            <button class="modal-button" @click="hideCreateOrEditMovie()">Cancel</button>
                             <button class="modal-button" v-if="creating && !editing" @click="confirmCreateMovie()">Créer</button>
                             <button class="modal-button" v-if="!creating && editing" @click="confirmEditMovie(movieToEdit.noFilm)">Modifier</button>
                         </div>
@@ -86,6 +86,7 @@
             </div>
         </transition>
 
+
         <b-button v-b-modal.modal-1 class="float-right" v-on:click="onClickCreateMovie()">Créer un film</b-button>
         <br />
         <h2>Liste des films</h2>
@@ -94,8 +95,8 @@
                 <b-card class="movie-card" bg-variant="dark" text-variant="white" v-for="(element, index) in movie.items" :key="index" :title="element.titre">
                     <template v-slot:header>
                         <h4 class="mb-0">Film n°{{element.noFilm}}</h4>
-                        <img src="../../assets/pencil-edit-button.png" @click="getAMovieToEdit(element)">
-                        <img src="../../assets/rubbish-bin.png" @click="deleteAMovie(element.noFilm)">
+                        <img src="../../assets/icon/pencil-edit-button.png" @click="getAMovieToEdit(element)">
+                        <img src="../../assets/icon/rubbish-bin.png" @click="deleteAMovie(element.noFilm)">
                     </template>
                     <b-card-body>
                         <b-card-sub-title>Durée : {{element.duree}}</b-card-sub-title>
@@ -104,10 +105,8 @@
                         <b-list-group-item variant="dark">Date de sortie : {{element.dateSortie}}</b-list-group-item>
                         <b-list-group-item variant="dark">Budget : {{element.budget}}</b-list-group-item>
                         <b-list-group-item variant="dark">Montant de la recette : {{element.montantRecette}}</b-list-group-item>
-                        <b-list-group-item variant="dark" v-if="showMore && movieSelected === element.noFilm">Réalisateur : {{directors.directors.directorSelected.director.prenRea}} {{directors.directors.directorSelected.director.nomRea}} </b-list-group-item>
-                        <b-list-group-item variant="dark" v-if="showMore && movieSelected === element.noFilm">Catégorie : {{ categories.categories.categorySelected.category.libelleCat }}</b-list-group-item>
+                        <router-link :to="`/movieDetails/${element.noFilm}`">Voir + d'info</router-link>
                     </b-list-group>
-                    <a v-if="movieSelected !== element.noFilm" @click="showMoreInformation(element)">Voir + d'info</a>
                 </b-card>
             </div>
         </div>
@@ -131,7 +130,6 @@
                 noRea: '',
                 codeCat: '',
 
-                showMore: false,
                 movieSelected: '',
 
                 editing: false,
@@ -151,6 +149,7 @@
             ...mapState({movies: state => state.movies}),
             ...mapState({directors: state => state.directors}),
             ...mapState({categories: state => state.categories}),
+            ...mapState({characters: state => state.characters}),
         },
         methods: {
             ...mapActions('movies', ['fetchMovies', 'createMovie', 'getAMovie', 'editMovie', 'deleteMovie']),
@@ -171,25 +170,10 @@
                 }
             },
 
-            hideCreateMovie() {
+            hideCreateOrEditMovie() {
                 this.showModalCreateOrEditMovie = false
                 this.creating = false
                 this.editing = false
-            },
-
-            async showMoreInformation(movie) {
-                this.movieSelected = movie.noFilm
-                await this.getTheDirector(movie.noRea)
-                await this.getTheCategory(movie.codeCat)
-                this.showMore = true
-            },
-
-            async getTheDirector(noRea) {
-                return await this.getADirector(noRea)
-            },
-
-            async getTheCategory(codeCat) {
-                return await this.getACategory(codeCat)
             },
 
             async getAMovieToEdit(movie) {
@@ -200,10 +184,6 @@
 
             async confirmEditMovie(noFilm) {
                 await this.getAMovie(noFilm)
-                // eslint-disable-next-line no-console
-                console.log(this.movies.movies.movieSelected)
-                // eslint-disable-next-line no-console
-                console.log(this.movieToEdit)
                 if(this.movies.movies.movieSelected.movie.noFilm === this.movieToEdit.noFilm) {
                     if(this.movies.movies.movieSelected.movie.titre !== this.movieToEdit.titre && this.movieToEdit.titre !== ''
                         || this.movies.movies.movieSelected.movie.duree !== this.movieToEdit.duree && this.movieToEdit.duree !== ''

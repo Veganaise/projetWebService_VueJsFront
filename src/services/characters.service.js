@@ -13,23 +13,19 @@ const CharactersService = {
         }
     },
 
-    getActorCharacters: async function(actor) {
-        const id = actor.noAct
+    getActorCharacters: async function(noAct) {
         try {
             return await HTTP.getInstance()
-                .get(`http://${API_PATH}/characters/getCharacters/actor/${encodeURIComponent(id.toString())}`)
+                .get(`http://${API_PATH}/characters/getCharacters/actor/${encodeURIComponent(noAct.toString())}`)
                 .then(response => Qs.parse(response.data))
         } catch (error) {
             throw error
         }
     },
 
-    getMovieCharacters: async function(movie) {
-        const id = movie.noFilm
+    getMovieCharacters: async function(noFilm) {
         try {
-            return await HTTP.getInstance()
-                .get(`http://${API_PATH}/characters/getCharacters/movie/${encodeURIComponent(id.toString())}`)
-                .then(response => Qs.parse(response.data))
+            return await HTTP.getInstance().get(`http://${API_PATH}/characters/getCharacters/movie/${encodeURIComponent(noFilm.toString())}`)
         } catch (error) {
             throw error
         }

@@ -77,14 +77,14 @@
     }
 
     input[type=text] {
-        background-image: url('../assets/user.png');
+        background-image: url('../assets/icon/user.png');
         background-position: 5px 3px;
         background-repeat: no-repeat;
         padding-left: 40px;
     }
 
     input[type=password] {
-        background-image: url('../assets/lock.png');
+        background-image: url('../assets/icon/lock.png');
         background-position: 5px 3px;
         background-repeat: no-repeat;
         padding-left: 40px;
