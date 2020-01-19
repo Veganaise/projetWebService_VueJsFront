@@ -1,6 +1,7 @@
 import TokenService from '../services/storage.service'
 import AuthenticateService from "../services/http-commons";
 import router from '../router'
+import UserService from "../services/user.service";
 
 const state = {
     authenticating: false,
@@ -8,6 +9,7 @@ const state = {
     authenticationErrorCode: 0,
     authenticationError: '',
     authenticationSuccess: false,
+    currentUser: ''
 };
 
 const getters = {
@@ -29,6 +31,10 @@ const getters = {
 
     authenticating: (state) => {
         return state.authenticating
+    },
+
+    currentUser: (state) => {
+        return state.currentUser
     }
 };
 
@@ -46,10 +52,22 @@ const actions = {
         }
     },
 
+    async getUserConnected({commit}) {
+        try {
+            const userConnected = await UserService.getUserConnected()
+            // eslint-disable-next-line no-console
+            console.log(userConnected.data)
+            commit('getUserConnectedSuccess', userConnected.data)
+        } catch (e) {
+            commit('getUserConnectedFailure', {error: e})
+            return false
+        }
+    },
+
     logout({commit}) {
         AuthenticateService.logout()
         commit('logoutSuccess')
-        router.push('/')
+        //router.push('/')
     }
 };
 
@@ -72,6 +90,13 @@ const mutations = {
     },
     logoutSuccess(state) {
         state.accessToken = ''
+    },
+
+    getUserConnectedSuccess(state, user) {
+        state.currentUser = user
+    },
+    getUserConnectedFailure(state, error) {
+        state.currentUser = error
     },
 };
 

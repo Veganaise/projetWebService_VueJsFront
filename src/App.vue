@@ -1,15 +1,16 @@
 <template>
-  <div class="layout" style="background-color: #BB0B0B;">
-    <Menu/>
+  <div class="d-flex flex-column mr-0 ml-auto min-vh-100" style="background-color: #BB0B0B; font-family: 'Avenir', Helvetica, Arial, sans-serif;">
+    <header>
+      <Menu/>
+    </header>
 
-    <div class="content-wrapper">
-      <router-view></router-view>
+    <router-view></router-view>
+
+    <br />
+    <div>
+      <Footer/>
     </div>
 
-    <br />
-    <br />
-
-    <Footer/>
   </div>
 </template>
 
@@ -30,7 +31,7 @@ export default {
   @import "./assets/custom.scss";
   @import "../node_modules/bootstrap/scss/bootstrap.scss";
 
-  #app {
+  /*#app {
     font-family: 'Avenir', Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -40,7 +41,7 @@ export default {
   }
 
   .layout {
-    display: flex;
+    /*display: flex;
     flex-direction: column;
     justify-content: space-between;
     min-height: 100%;
@@ -54,5 +55,5 @@ export default {
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
-  }
+  }*/
 </style>

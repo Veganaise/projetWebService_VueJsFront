@@ -25,10 +25,10 @@
                             </td>
                             <td v-else>{{ element.role}}</td>
                             <td>
-                                <img v-if="!editing" src="../assets/icon/pencil-edit-button.png" @click="getAnUser(element.username)">
-                                <img v-if="!editing" src="../assets/icon/rubbish-bin.png" @click="deleteAnUser(element.username)">
-                                <img v-if="editing" src="../assets/icon/confirm.png" @click="editAnUser(element)">
-                                <img v-if="editing" src="../assets/icon/remove.png" @click="cancel()">
+                                <img v-if="!editing" src="../../assets/icon/pencil-edit-button.png" @click="getAnUser(element.username)">
+                                <img v-if="!editing" src="../../assets/icon/rubbish-bin.png" @click="deleteAnUser(element.username)">
+                                <img v-if="editing" src="../../assets/icon/confirm.png" @click="editAnUser(element)">
+                                <img v-if="editing" src="../../assets/icon/remove.png" @click="cancel()">
                             </td>
                         </tr>
                     </template>
@@ -36,7 +36,7 @@
                         <td></td>
                         <td></td>
                         <td></td>
-                        <td><img src="../assets/icon/plus.png" @click="startToCreateAnUser()"></td>
+                        <td><img src="../../assets/icon/plus.png" @click="startToCreateAnUser()"></td>
                     </tr>
                     <tr v-if="!editing && creating">
                         <td><b-form-input type="text" name="username" v-model="username" placeholder="Username"/></td>
@@ -47,7 +47,7 @@
                                 <option value="admin">admin</option>
                             </b-form-select>
                         </td>
-                        <td><img src="../assets/icon/confirm.png" @click="createAnUser(username, password, role)"></td>
+                        <td><img src="../../assets/icon/confirm.png" @click="createAnUser(username, password, role)"></td>
                     </tr>
                 </tbody>
             </table>

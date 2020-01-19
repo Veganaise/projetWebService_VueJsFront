@@ -6,10 +6,10 @@ import Home from '../components/Home'
 import Login from '../components/Login'
 import Actors from '../components/actors/Actors'
 import ActorDetails from '../components/actors/ActorDetails'
-import Administration from "../components/Administration";
+import Administration from "../components/users/Administration";
+import Profile from "../components/users/Profile";
 import Categories from "../components/categories/Categories";
 import store from '../store/index'
-//import App from "../App";
 
 Vue.use(VueRouter)
 
@@ -55,6 +55,11 @@ const routes = [
         path: '/users',
         name: 'Administration',
         component: Administration
+    },
+    {
+        path: '/profile/:id',
+        name: 'Profile',
+        component: Profile
     },
     {
         path: '/categories',

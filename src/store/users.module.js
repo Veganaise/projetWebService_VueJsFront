@@ -3,7 +3,7 @@ import router from '../router'
 
 const state = {
     all: [],
-    userSelected: []
+    userSelected: [],
 };
 
 const getters = {

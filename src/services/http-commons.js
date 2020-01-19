@@ -12,7 +12,6 @@ const axiosCreate = axios.create({
         "Access-Control-Allow-Origin" : "*",
         "Access-Control-Allow-Methods" : "GET, PUT, POST, DELETE, HEAD",
         "Access-Control-Allow-Headers" : "*",
-        //pour dire au serveur que le data est du json
         "Content-Type" : "application/json",
         Authorization: TokenService.getToken()
     },
@@ -53,26 +52,6 @@ export var HTTP = (function () {
 //     return Promise.reject(error);
 // }
 
-/*const AUTH_BASE_ROUTE = "authentication";
-
-export const authenticate = function(username, password) {
-    return new Promise((resolve, reject) => {
-        const instance = HTTP.getInstance();
-        instance.post(`${AUTH_BASE_ROUTE}/authenticate`, Qs.parse({
-            "username": username,
-            "password": password
-        })).then((response) => {
-            instance.AUTH_TOKEN = response.data.token;
-            instance.defaults.headers['Authorization'] = `Bearer ${instance.AUTH_TOKEN}`;
-            resolve(instance.AUTH_TOKEN);
-        }).catch((error) => {
-            // eslint-disable-next-line no-console
-            console.log(`Error on authentication: ${error}\nAxios config was: ${Qs.stringify(error.config)}`);
-            reject(error);
-        })
-    })
-};*/
-
 const AuthenticateService = {
     authenticate: async function(username, password) {
         const instance = HTTP.getInstance();
@@ -82,7 +61,7 @@ const AuthenticateService = {
                 "password": password
             }))
         } catch(error) {
-            throw new error
+            throw error
         }
     },
 

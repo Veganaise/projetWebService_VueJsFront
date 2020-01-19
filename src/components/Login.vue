@@ -1,17 +1,27 @@
 <template>
-    <div class="login">
-        <h1>Login</h1>
-        <div style="text-align: center;">
-            <label>
-                <input type="text" name="username" v-model="username" required placeholder="Username" />
-            </label>
-            <br/>
-            <label>
-                 <input type="password" name="password" v-model="password" required placeholder="Password" />
-            </label>
+    <div class="w-50 m-auto" style="background-color: #1E1E1E;">
+        <h1 class="text-center" style="color: #BB0B0B">Login</h1>
+        <div class="input-group w-auto m-auto pl-3 pr-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text" style="background-color: #BB0B0B;">
+                    <img alt="user" src="../assets/icon/user.png">
+                </span>
+            </div>
+            <input type="text" class="form-control m-auto" placeholder="Username" aria-label="Username" v-model="username" required>
         </div>
-        <div style="text-align: center;">
-            <button type="button" v-on:click="handleSubmit()">Login</button>
+        <br />
+        <div class="input-group w-auto m-auto pl-3 pr-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text" style="background-color: #BB0B0B;">
+                    <img alt="lock" src="../assets/icon/lock.png">
+                </span>
+            </div>
+            <input type="password" class="form-control m-auto " placeholder="Password" aria-label="Password" v-model="password" required>
+        </div>
+        <div class="text-center mt-2">
+            <button class="btn" style="background-color: #BB0B0B;" type="submit" v-on:click="handleSubmit()">Login</button>
+            <br/>
+            <router-link class="text-white" to="/register">Vous n'avez pas de compte ? Inscrivez vous ici</router-link>
         </div>
     </div>
 </template>
@@ -29,12 +39,7 @@
             }
         },
         computed: {
-            ...mapGetters('auth', [
-                'authenticating',
-                'authenticationError',
-                'authenticationErrorCode',
-                'authenticationSuccess'
-            ])
+            ...mapGetters('auth', ['authenticating', 'authenticationError', 'authenticationErrorCode', 'authenticationSuccess'])
         },
         methods: {
             ...mapActions('auth', ['authenticate']),
@@ -51,53 +56,4 @@
 </script>
 
 <style scoped>
-    .login {
-        width: 500px;
-        border: none;
-        background-color: #1E1E1E;
-        margin: auto;
-        margin-top: 20px;
-        padding: 20px;
-    }
-
-    h1 {
-        color: #BB0B0B;
-        text-align: center;
-    }
-
-    input {
-        width: 100%;
-        padding: 12px 20px;
-        margin: 8px 0;
-        box-sizing: border-box;
-        border: none;
-        border-radius: 4px;
-        background-color: #BB0B0B;
-        color: #1E1E1E;
-    }
-
-    input[type=text] {
-        background-image: url('../assets/icon/user.png');
-        background-position: 5px 3px;
-        background-repeat: no-repeat;
-        padding-left: 40px;
-    }
-
-    input[type=password] {
-        background-image: url('../assets/icon/lock.png');
-        background-position: 5px 3px;
-        background-repeat: no-repeat;
-        padding-left: 40px;
-    }
-
-    button {
-        background-color: #BB0B0B;
-        border: none;
-        color: #000000;
-        padding: 12px 30px;
-        text-align: center;
-        text-decoration: none;
-        margin-top: 10px;
-        cursor: pointer;
-    }
 </style>

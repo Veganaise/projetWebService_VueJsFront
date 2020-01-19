@@ -29,6 +29,14 @@ const UserService = {
         }
     },
 
+    getUserConnected: async function() {
+        try {
+            return await HTTP.getInstance().get(`http://${API_PATH}/users/getUser/me`)
+        } catch (error) {
+            throw error
+        }
+    },
+
     editUser: async function(username, password, role) {
         try {
             return await HTTP.getInstance().put(`http://${API_PATH}/users/updateUser`, {username, password, role})
