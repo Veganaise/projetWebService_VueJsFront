@@ -86,30 +86,28 @@
             </div>
         </transition>
 
-
-        <b-button v-b-modal.modal-1 class="float-right" v-on:click="onClickCreateMovie()">Créer un film</b-button>
-        <br />
-
         <!--Affichage depuis l'onglet "Film" du menu-->
         <div v-if="codeCatFromCategoriesPage === undefined">
-            <h2>Liste des films</h2>
+            <h2 class="mt-2 text-center">Liste des films  <img src="../../assets/icon/plus_b.png" alt="plus" @click="onClickCreateMovie()"/></h2>
             <div>
                 <div v-for="movie in movies" :key="movie.noFilm">
-                    <b-card class="movie-card" bg-variant="dark" text-variant="white" v-for="(element, index) in movie.items" :key="index" :title="element.titre">
+                    <b-card class="mt-3 text-center mr-2 ml-2" bg-variant="dark" text-variant="white" v-for="(element, index) in movie.items" :key="index" :title="element.titre">
                         <template v-slot:header>
-                            <h4 class="mb-0">Film n°{{element.noFilm}}</h4>
-                            <img src="../../assets/icon/pencil-edit-button.png" @click="getAMovieToEdit(element)">
-                            <img src="../../assets/icon/rubbish-bin.png" @click="deleteAMovie(element.noFilm)">
+                            <h4 class="mb-0">Film n°{{element.noFilm}}
+                                <img src="../../assets/icon/pencil-edit-button.png" @click="getAMovieToEdit(element)">&nbsp;
+                                <img src="../../assets/icon/rubbish-bin.png" @click="deleteAMovie(element.noFilm)">
+                            </h4>
                         </template>
                         <b-card-body>
-                            <b-card-sub-title>Durée : {{element.duree}}</b-card-sub-title>
+                            <b-card-sub-title><strong>Durée</strong> {{element.duree}} min</b-card-sub-title>
                         </b-card-body>
                         <b-list-group flush>
-                            <b-list-group-item variant="dark">Date de sortie : {{element.dateSortie}}</b-list-group-item>
-                            <b-list-group-item variant="dark">Budget : {{element.budget}}</b-list-group-item>
-                            <b-list-group-item variant="dark">Montant de la recette : {{element.montantRecette}}</b-list-group-item>
-                            <router-link :to="`/movieDetails/${element.noFilm}`">Voir + d'info</router-link>
+                            <b-list-group-item variant="dark"><strong>Date de sortie</strong> {{element.dateSortie}}</b-list-group-item>
+                            <b-list-group-item variant="dark"><strong>Budget</strong> {{element.budget}} €</b-list-group-item>
+                            <b-list-group-item variant="dark"><strong>Montant de la recette</strong> {{element.montantRecette}}</b-list-group-item>
                         </b-list-group>
+                        <br />
+                        <router-link class="text-white" :to="`/movieDetails/${element.noFilm}`">Voir + d'info</router-link>
                     </b-card>
                 </div>
             </div>
@@ -121,7 +119,7 @@
             <a @click="showAllMovies()">Voir tous les films</a>
             <div>
                 <div v-for="movie in movies" :key="movie.noFilm">
-                    <b-card class="movie-card" bg-variant="dark" text-variant="white" v-for="(element, index) in movie.items" :key="index" :title="element.titre">
+                    <b-card class="mt-3 text-center mr-2 ml-2" bg-variant="dark" text-variant="white" v-for="(element, index) in movie.items" :key="index" :title="element.titre">
                         <template v-slot:header>
                             <h4 class="mb-0">Film n°{{element.noFilm}}</h4>
                             <img src="../../assets/icon/pencil-edit-button.png" @click="getAMovieToEdit(element)">
@@ -258,17 +256,6 @@
 </script>
 
 <style scoped>
-    .movie-card {
-        margin-top: 30px;
-        text-align: center;
-        margin-right: 200px;
-        margin-left: 200px;
-    }
-
-    h2 {
-        margin-top: 20px;
-        text-align: center;
-    }
 
     .modal-mask {
         position: absolute;
