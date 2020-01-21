@@ -22,12 +22,14 @@
             <button class="btn" style="background-color: #BB0B0B;" type="submit" v-on:click="handleSubmit()">Login</button>
             <br/>
             <router-link class="text-white" to="/register">Vous n'avez pas de compte ? Inscrivez vous ici</router-link>
+            <br />
+            <span v-if="auth.authenticationError !== '' && !auth.authenticationSuccess" class="text-danger">{{authenticationError}}</span>
         </div>
     </div>
 </template>
 
 <script>
-    import { mapGetters, mapActions } from 'vuex'
+    import { mapGetters, mapActions, mapState } from 'vuex'
 
     export default {
         name: "Login",
@@ -39,7 +41,8 @@
             }
         },
         computed: {
-            ...mapGetters('auth', ['authenticating', 'authenticationError', 'authenticationErrorCode', 'authenticationSuccess'])
+            ...mapGetters('auth', ['authenticating', 'authenticationError', 'authenticationErrorCode', 'authenticationSuccess']),
+            ...mapState({auth: state => state.auth}),
         },
         methods: {
             ...mapActions('auth', ['authenticate']),

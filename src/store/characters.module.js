@@ -47,21 +47,21 @@ const mutations = {
         state.characters = { items: characters };
     },
     fetchCharactersFailure(state, error) {
-        state.characters = { error }
+        state.characters = error
     },
 
     getMovieCharactersSuccess(state, character) {
         state.characters.charactersSelected = {character}
     },
     getMovieCharactersFailure(state, error) {
-        state.characters.charactersSelected = {error}
+        state.characters.charactersSelected = error
     },
 
     getActorCharactersSuccess(state, character) {
         state.characters.charactersSelected = {character}
     },
     getActorCharactersFailure(state, error) {
-        state.characters.charactersSelected = {error}
+        state.characters.charactersSelected = error
     },
 };
 

@@ -60,23 +60,15 @@ const actions = {
             commit('deleteActorSuccess', noAct)
             return await router.go(0)
         } catch (e) {
-            commit('deleteActorFailure', {error: e})
-            return false
+            if (e.message === 'Request failed with status code 500') {
+                commit('deleteActorFailure', {error: "Vous ne pouvez pas supprimer cette acteur car il fait partie d'au moins un film"})
+                return false
+            } else {
+                commit('deleteActorFailure', {error: e.message})
+                return false
+            }
         }
     },
-
-    /*async getActorCharacters( {commit}, actor) {
-        try {
-            const actorCharacters = await ActorsService.getActorCharacters(actor)
-            // eslint-disable-next-line no-console
-            console.log(actorCharacters)
-            commit('getActorCharactersSuccess', actorCharacters)
-        } catch(e) {
-            commit('getActorCharactersFailure', {error: e})
-            return false
-        }
-    }*/
-
 };
 
 const mutations = {
@@ -84,21 +76,21 @@ const mutations = {
         state.actors = { items: actors};
     },
     fetchActorsFailure(state, error) {
-        state.actors = { error }
+        state.actors = error
     },
 
     createActorSuccess(state) {
         state.actors = {items: actors}
     },
-    createActorFailure(state, {error}) {
-        state.actors = {error}
+    createActorFailure(state, error) {
+        state.actors = error
     },
 
     getAnActorSuccess(state, actor) {
         state.actors.actorSelected = {actor}
     },
     getAnActorFailure(state, error) {
-        state.actors.actorSelected = {error}
+        state.actors.actorSelected = error
     },
 
     editActorSuccess(state, actor) {
@@ -109,22 +101,15 @@ const mutations = {
         });
     },
     editActorFailure(state, error) {
-        state.actors = {error}
+        state.actors = error
     },
 
     deleteActorSuccess(state, noAct) {
         state.actors.items = Object.keys(state.actors.items).filter(actor => actor.noAct !== noAct)
     },
     deleteActorFailure(state, error) {
-        state.actors = {error}
+        state.actors = error
     },
-
-    /*getActorCharactersSuccess(state, actorCharacters) {
-        state.actors.items.actorCharacters = {items: actorCharacters}
-    },
-    getActorCharactersFailure(state, error) {
-        state.actors.items.actorCharacters = { error }
-    },*/
 };
 
 export const actors = {

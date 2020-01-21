@@ -47,16 +47,19 @@ const actions = {
             TokenService.saveToken(response.data.token)
             await router.push('/')
         } catch (e) {
-            commit('authenticateFailure', {errorCode : e.errorCode, errorMessage: e.message})
-            return false
+            if (e.message === 'Request failed with status code 401') {
+                commit('authenticateFailure', {errorCode: e.errorCode, errorMessage: "Username ou password incorrects"})
+                return false
+            } else {
+                commit('authenticateFailure', {errorCode: e.errorCode, errorMessage: e.message})
+                return false
+            }
         }
     },
 
     async getUserConnected({commit}) {
         try {
             const userConnected = await UserService.getUserConnected()
-            // eslint-disable-next-line no-console
-            console.log(userConnected.data)
             commit('getUserConnectedSuccess', userConnected.data)
         } catch (e) {
             commit('getUserConnectedFailure', {error: e})
@@ -67,7 +70,6 @@ const actions = {
     logout({commit}) {
         AuthenticateService.logout()
         commit('logoutSuccess')
-        //router.push('/')
     }
 };
 

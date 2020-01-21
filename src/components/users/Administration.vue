@@ -1,30 +1,30 @@
 <template>
     <div>
-        <h2>Liste des utilisateurs</h2>
+        <h2 class="mt-3 text-center"><strong>Liste des utilisateurs</strong></h2>
         <div style="overflow-x:auto;">
-            <table>
+            <table class="text-center m-auto table-bordered bg-dark text-white" style="border:1px solid #BB0B0B;">
                 <thead>
-                <tr>
-                    <th>Username</th>
-                    <th>Password</th>
-                    <th>Role</th>
-                    <th></th>
-                </tr>
+                    <tr>
+                        <th class="pt-3 pb-3 pr-2 pl-2">Username</th>
+                        <th class="pt-3 pb-3 pr-2 pl-2">Password</th>
+                        <th class="pt-3 pb-3 pr-2 pl-2">Role</th>
+                        <th class="pt-3 pb-3 pr-2 pl-2"></th>
+                    </tr>
                 </thead>
                 <tbody>
                     <template v-for="user in users">
                         <tr v-for="(element, index) in user" :key="index">
-                            <td>{{ element.username }}</td>
-                            <td v-if="editing && element.username === userToEdit"><b-form-input type="password" name="editPassword" v-model="editPassword" :placeholder="element.password"/></td>
-                            <td v-else>{{ element.password}}</td>
-                            <td v-if="editing && element.username === userToEdit">
+                            <td class="pt-3 pb-3 pr-2 pl-2">{{ element.username }}</td>
+                            <td class="pt-3 pb-3 pr-2 pl-2" v-if="editing && element.username === userToEdit"><b-form-input type="password" name="editPassword" v-model="editPassword" :placeholder="element.password"/></td>
+                            <td class="pt-3 pb-3 pr-2 pl-2" v-else>{{ element.password}}</td>
+                            <td class="pt-3 pb-3 pr-2 pl-2" v-if="editing && element.username === userToEdit">
                                 <b-form-select name="editRole" v-model="editRole" :placeholder="element.role">
                                     <option value="user">user</option>
                                     <option value="admin">admin</option>
                                 </b-form-select>
                             </td>
-                            <td v-else>{{ element.role}}</td>
-                            <td>
+                            <td class="pt-3 pb-3 pr-2 pl-2" v-else>{{ element.role}}</td>
+                            <td class="pt-3 pb-3 pr-2 pl-2">
                                 <img v-if="!editing" src="../../assets/icon/pencil-edit-button.png" @click="getAnUser(element.username)">
                                 <img v-if="!editing" src="../../assets/icon/rubbish-bin.png" @click="deleteAnUser(element.username)">
                                 <img v-if="editing" src="../../assets/icon/confirm.png" @click="editAnUser(element)">
@@ -36,24 +36,25 @@
                         <td></td>
                         <td></td>
                         <td></td>
-                        <td><img src="../../assets/icon/plus.png" @click="startToCreateAnUser()"></td>
+                        <td class="pt-3 pb-3 pr-2 pl-2"><img src="../../assets/icon/plus.png" @click="startToCreateAnUser()"></td>
                     </tr>
                     <tr v-if="!editing && creating">
-                        <td><b-form-input type="text" name="username" v-model="username" placeholder="Username"/></td>
-                        <td><b-form-input type="password" name="password" v-model="password" placeholder="Password"/></td>
-                        <td>
+                        <td class="pt-3 pb-3 pr-2 pl-2"><b-form-input type="text" name="username" v-model="username" placeholder="Username"/></td>
+                        <td class="pt-3 pb-3 pr-2 pl-2"><b-form-input type="password" name="password" v-model="password" placeholder="Password"/></td>
+                        <td class="pt-3 pb-3 pr-2 pl-2">
                             <b-form-select name="role" v-model="role" placeholder="Role">
                                 <option value="user">user</option>
                                 <option value="admin">admin</option>
                             </b-form-select>
                         </td>
-                        <td><img src="../../assets/icon/confirm.png" @click="createAnUser(username, password, role)"></td>
+                        <td class="pt-3 pb-3 pr-2 pl-2"><img src="../../assets/icon/confirm.png" @click="createAnUser(username, password, role)"></td>
                     </tr>
                 </tbody>
             </table>
         </div>
-        <span v-if="users.error" class="text-danger">ERROR: {{users.error}}</span>
-    </div>
+        <br />
+        <span v-if="users.error !== ''">{{users.error}}</span>
+        </div>
 </template>
 
 <script>
@@ -127,23 +128,15 @@
 </script>
 
 <style scoped>
-    table {
+    table.table-bordered{
         border: 2px solid #BB0B0B;
-        border-radius: 3px;
-        background-color: #1E1E1E;
-        align-content: center;
-        border-collapse: collapse;
-        text-align: center;
-        margin-right: auto;
-        margin-left: auto;
+        margin-top: 20px;
     }
-
-    th, td {
-        background-color: #1E1E1E;
-        color: rgba(255,255,255,0.66);
-        cursor: pointer;
+    table.table-bordered > thead > tr > th{
         border: 2px solid #BB0B0B;
-        padding: 10px 20px;
+    }
+    table.table-bordered > tbody > tr > td{
+        border: 2px solid #BB0B0B;
     }
 
     th:hover {
@@ -152,18 +145,5 @@
 
     td:hover {
         color: #BB0B0B;
-    }
-
-    h2 {
-        margin-top: 20px;
-        text-align: center;
-    }
-
-    .text-danger {
-        color: #BB0B0B;
-    }
-
-    input {
-
     }
 </style>

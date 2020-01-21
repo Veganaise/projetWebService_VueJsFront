@@ -72,21 +72,21 @@ const mutations = {
         state.all = {items: users}
     },
     getAllUsersFailure(state, error) {
-        state.all = {error}
+        state.all = error
     },
 
     deleteUserSuccess(state, username) {
         state.all.items = Object.keys(state.all.items).filter(user => user.username !== username)
     },
     deleteUserFailure(state, error) {
-        state.all = {error}
+        state.all = error
     },
 
     getAnUserSuccess(state, user) {
         state.userSelected = {user}
     },
     getAnUserFailure(state, error) {
-        state.userSelected = {error}
+        state.userSelected = error
     },
 
     editUserSuccess(state, user) {
@@ -103,8 +103,8 @@ const mutations = {
     createUserSuccess(state) {
         state.all = { items: users }
     },
-    createUserFailure(state, { error }) {
-        state.all = { error }
+    createUserFailure(state, error) {
+        state.all = error
     },
 
 };

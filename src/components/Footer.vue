@@ -12,15 +12,5 @@
 </script>
 
 <style scoped>
-    /*.footer {
-        bottom: 0;
-        height: 80px;
-        text-align: center;
 
-    }
-
-    p{
-        margin-top: 20px;
-        line-height:5px;
-    }*/
 </style>

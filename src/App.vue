@@ -7,10 +7,10 @@
     <router-view></router-view>
 
     <br />
-    <div>
-      <Footer/>
-    </div>
 
+    <footer>
+      <Footer/>
+    </footer>
   </div>
 </template>
 

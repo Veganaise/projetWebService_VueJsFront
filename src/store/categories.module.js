@@ -75,21 +75,21 @@ const mutations = {
         state.categories = { items: categories };
     },
     fetchCategoriesFailure(state, error) {
-        state.categories = { error }
+        state.categories = error
     },
 
     getACategorySuccess(state, category) {
         state.categories.categorySelected = {category}
     },
     getACategoryFailure(state, error) {
-        state.categories.categorySelected = {error}
+        state.categories.categorySelected = error
     },
 
     createCategorySuccess(state) {
         state.categories = { items: categories }
     },
-    createCategoryFailure(state, { error }) {
-        state.categories = { error }
+    createCategoryFailure(state, error) {
+        state.categories = error
     },
 
     editCategorySuccess(state, category) {
@@ -100,7 +100,7 @@ const mutations = {
         });
     },
     editCategoryFailure(state, error) {
-        state.categories = { error }
+        state.categories = error
     },
 
     deleteCategorySuccess(state, codeCat) {

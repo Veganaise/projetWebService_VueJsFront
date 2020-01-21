@@ -59,20 +59,15 @@ const actions = {
             commit('deleteMovieSuccess', noFilm)
             return await router.go(0)
         } catch (e) {
-            commit('deleteMovieFailure', {error: e})
-            return false
+            if (e.message === 'Request failed with status code 500') {
+                commit('deleteMovieFailure', {error: "Vous ne pouvez pas supprimer ce film"})
+                return false
+            } else {
+                commit('deleteMovieFailure', {error: e})
+                return false
+            }
         }
     },
-
-    /*async getMoviesDirector({commit}, noRea) {
-        try {
-            const director = await MoviesService.getMoviesDirector(noRea)
-            commit('getMovieDirectorSuccess', director.data)
-        } catch (e) {
-            commit('getMovieDirectorFailure', {error: e})
-            return false
-        }
-    },*/
 
     async getMoviesFromCat({commit}, codeCat) {
         try {
@@ -91,21 +86,21 @@ const mutations = {
         state.movies = { items: movies };
     },
     fetchMoviesFailure(state, error) {
-        state.movies = { error }
+        state.movies = error
     },
 
     createMovieSuccess(state) {
         state.movies = { items: movies }
     },
     createMovieFailure(state, { error }) {
-        state.movies = { error }
+        state.movies = error
     },
 
     getAMovieSuccess(state, movie) {
         state.movies.movieSelected = {movie}
     },
     getAMovieFailure(state, error) {
-        state.movies.movieSelected = {error}
+        state.movies.movieSelected = error
     },
 
     editMovieSuccess(state, movie) {
@@ -116,21 +111,21 @@ const mutations = {
         });
     },
     editMovieFailure(state, error) {
-        state.movies = { error }
+        state.movies = error
     },
 
     deleteMovieSuccess(state, noFilm) {
         state.movies.items = Object.keys(state.movies.items).filter(movie => movie.noFilm !== noFilm)
     },
     deleteMovieFailure(state, error) {
-        state.movies = {error}
+        state.movies = error
     },
 
     getMoviesFromCatSuccess(state, movies) {
         state.movies = {items : movies}
     },
     getMoviesFromCatFailure(state, error) {
-        state.movies = {error}
+        state.movies = error
     },
 };
 
