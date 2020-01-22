@@ -31,12 +31,10 @@ const CharactersService = {
         }
     },
 
-    getMovieAndActorCharacters: async function(movie, actor) {
-        const idMovie = movie.noFilm
-        const idActor = actor.noAct
+    getACharacter: async function(noFilm, noAct) {
         try {
             return await HTTP.getInstance()
-                .get(`http://${API_PATH}/characters/getCharacters/movie/${encodeURIComponent(idMovie.toString())}/actor/${encodeURIComponent(idActor.toString())}`)
+                .get(`http://${API_PATH}/characters/getCharacter/movie/${encodeURIComponent(noFilm.toString())}/actor/${encodeURIComponent(noAct.toString())}`)
                 .then(response => Qs.parse(response.data))
         } catch (error) {
             throw error
@@ -51,7 +49,7 @@ const CharactersService = {
         }
     },
 
-    updateCharacter: async function(noFilm, noAct, nomPers) {
+    editCharacter: async function(noFilm, noAct, nomPers) {
         try {
             return await HTTP.getInstance().put(`http://${API_PATH}/characters/updateCharacter`, {noFilm, noAct, nomPers})
         } catch (error) {
@@ -59,11 +57,9 @@ const CharactersService = {
         }
     },
 
-    deleteCharacter: async function(movie, actor) {
-        const idMovie = movie.noFilm
-        const idActor = actor.noAct
+    deleteCharacter: async function(noFilm, noAct) {
         try {
-            return await HTTP.getInstance().delete(`http://${API_PATH}/characters/deleteCharacter/movie/${encodeURIComponent(idMovie.toString())}/actors/${encodeURIComponent(idActor.toString())}`)
+            return await HTTP.getInstance().delete(`http://${API_PATH}/characters/deleteCharacter/movie/${encodeURIComponent(noFilm.toString())}/actor/${encodeURIComponent(noAct.toString())}`)
         } catch (error) {
             throw error
         }

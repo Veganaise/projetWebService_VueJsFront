@@ -9,6 +9,7 @@
                 <b-nav-item href="/categories">Catégories</b-nav-item>
                 <b-nav-item href="/actors">Acteurs</b-nav-item>
                 <b-nav-item href="/directors">Réalisateurs</b-nav-item>
+                <b-nav-item href="/characters">Personnages</b-nav-item>
                 <b-nav-item href="/users" v-if="auth.currentUser.role === 'admin'">Administration</b-nav-item>
             </b-navbar-nav>
 

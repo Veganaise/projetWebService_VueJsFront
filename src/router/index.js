@@ -10,6 +10,7 @@ import Administration from "../components/users/Administration";
 import Profile from "../components/users/Profile";
 import Categories from "../components/categories/Categories";
 import Directors from "../components/directors/Directors";
+import Characters from "../components/characters/Characters";
 import store from '../store/index'
 
 Vue.use(VueRouter)
@@ -77,6 +78,11 @@ const routes = [
         path: '/directors',
         name: 'Directors',
         component: Directors
+    },
+    {
+        path: '/characters',
+        name: 'Characters',
+        component: Characters
     }
 ]
 
@@ -86,7 +92,7 @@ const router = new VueRouter({
 })
 
 router.beforeEach((to, from, next) => {
-    const publicPages = ['/login', '/']
+    const publicPages = ['/login', '/', '/register']
     const authRequired = !publicPages.includes(to.path)
     const loggedIn = store.getters['auth/loggedIn']
     if (authRequired && !loggedIn) {
