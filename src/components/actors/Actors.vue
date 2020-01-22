@@ -142,6 +142,7 @@
                                 dateDeces: this.actorToEdit.dateDeces})
                         } else {
                             this.actorToEdit = this.actors.actors.actorSelected.actor
+                            this.$router.go(0)
                         }
                     }
                 }

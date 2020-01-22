@@ -132,6 +132,7 @@
                                 libelleCat: this.catToEdit.libelleCat, image: this.catToEdit.image})
                         } else {
                             this.catToEdit = this.categories.categories.categorySelected.category
+                            this.$router.go(0)
                         }
                     }
                 }

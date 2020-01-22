@@ -26,7 +26,7 @@ const MoviesService = {
         }
     },
 
-    getMovieDirector: async function(noRea) {
+    getMoviesFromDirector: async function(noRea) {
         try {
             return await HTTP.getInstance().get(`http://${API_PATH}/movies/getMovies/director/${encodeURIComponent(noRea)}`)
         } catch (error) {

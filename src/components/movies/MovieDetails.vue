@@ -3,11 +3,7 @@
         <router-link to="/movies"><img class="ml-1 mt-1" src="../../assets/icon/left-arrow.png"/></router-link>
         <div class="w-75 mt-0 mr-auto ml-auto bg-dark">
             <h1 class="text-white mt-3 text-center">Informations sur le film n°{{noFilm}}</h1>
-            <div v-if="renderComponent && movies.movies.movieSelected === undefined">
-                <h4 class="text-white text-center m-auto" @click="forceRerender()">Force Reload</h4>
-                <br/>
-            </div>
-            <div v-if="renderComponent && movies.movies.movieSelected !== undefined">
+            <div v-if="renderComponent">
                 <div class="row mt-3">
                     <div class="col-md-4 ml-auto">
                         <h4 class="text-white"><img src="../../assets/icon/movie-clapper-open.png"/>  Titre</h4>
@@ -64,6 +60,8 @@
                         <h4 class="text-white">{{movies.movies.movieSelected.movie.categorieByCodeCat.libelleCat}}</h4>
                     </div>
                 </div>
+            </div>
+            <div v-if="renderCharacters">
                 <div class="row mt-3">
                     <div class="col-md-4 ml-auto">
                         <h4 class="text-white"><img src="../../assets/icon/superhero.png"/>  Personnages</h4>
@@ -87,15 +85,27 @@
         data() {
             return {
                 noFilm: this.$route.params.id,
-                renderComponent: true
+                renderComponent: false,
+                renderCharacters: false,
             }
         },
         created() {
             this.getAMovie(this.noFilm)
             this.getMovieCharacters(this.noFilm)
-        },
-        mounted() {
-            this.forceRerender()
+
+            // eslint-disable-next-line no-unused-vars
+            this.$store.subscribe((mutation, state) => {
+                if (mutation.type === 'movies/getAMovieSuccess') {
+                    this.renderComponent = true
+                }
+            });
+
+            // eslint-disable-next-line no-unused-vars
+            this.$store.subscribe((mutation, state) => {
+                if (mutation.type === 'characters/getMovieCharactersSuccess') {
+                    this.renderCharacters = true
+                }
+            })
         },
         computed: {
             ...mapState({movies: state => state.movies}),
@@ -104,16 +114,6 @@
         methods: {
             ...mapActions('movies', ['getAMovie']),
             ...mapActions('characters', ['getMovieCharacters']),
-
-            forceRerender() {
-                // Remove my-component from the DOM
-                this.renderComponent = false
-
-                this.$nextTick(() => {
-                    // Add the component back in
-                    this.renderComponent = true
-                });
-            }
         },
     }
 </script>

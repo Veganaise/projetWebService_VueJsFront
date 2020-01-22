@@ -81,7 +81,7 @@
         </b-modal>
 
         <!--Affichage depuis l'onglet "Film" du menu-->
-        <div v-if="codeCatFromCategoriesPage === undefined">
+        <div v-if="codeCatFromCategoriesPage === undefined && noReaFromDirectorsPage === undefined">
             <h2 class="mt-3 text-center"><strong>Liste des films  </strong><img src="../../assets/icon/plus_b.png" alt="plus" @click="onClickCreateMovie()"/></h2>
             <div>
                 <div v-for="movie in movies" :key="movie.noFilm">
@@ -139,6 +139,41 @@
                 </div>
             </div>
         </div>
+
+        <!-- Affichage depuis l'onglet "Réalisateurs" du menu-->
+        <div v-if="noReaFromDirectorsPage !== undefined">
+            <h2 class="mt-3 text-center"><strong>Liste des films du directeur {{noReaFromDirectorsPage}} </strong><img src="../../assets/icon/plus_b.png" alt="plus" @click="onClickCreateMovie()"/></h2>
+            <div class="text-center">
+                <a class="text-white" @click="showAllMovies()">Afficher tous les films</a>
+            </div>
+            <div>
+                <div class="text-center" v-if="movies.movies.items.length === 0">
+                    <br />
+                    Ce réalisateur n'a pas de film dans la base de données. Vous pouvez en ajouter si vous le souhaitez
+                </div>
+                <div v-for="movie in movies" :key="movie.noFilm">
+                    <b-card class="mt-3 text-center mr-5 ml-5" bg-variant="dark" text-variant="white" v-for="(element, index) in movie.items" :key="index" :title="element.titre">
+                        <template v-slot:header>
+                            <h4 class="mb-0">Film n°{{element.noFilm}}</h4>
+                            <img src="../../assets/icon/pencil-edit-button.png" @click="getAMovieToEdit(element)">
+                            <img src="../../assets/icon/rubbish-bin.png" @click="deleteAMovie(element.noFilm)">
+                        </template>
+                        <b-card-body>
+                            <b-card-sub-title>Durée : {{element.duree}}</b-card-sub-title>
+                        </b-card-body>
+                        <b-list-group flush>
+                            <b-list-group-item variant="dark">Date de sortie : {{element.dateSortie}}</b-list-group-item>
+                            <b-list-group-item variant="dark">Budget : {{element.budget}}</b-list-group-item>
+                            <b-list-group-item variant="dark">Montant de la recette : {{element.montantRecette}}</b-list-group-item>
+                        </b-list-group>
+                        <br />
+                        <router-link class="text-white" :to="`/movieDetails/${element.noFilm}`">Voir + d'info</router-link>
+                    </b-card>
+                    <br />
+                    <span v-if="movies.movies.error !== '' && movies.movies.items === undefined">{{movies.movies.error}}</span>
+                </div>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -164,16 +199,25 @@
                 editing: false,
                 movieToEdit: '',
 
-                codeCatFromCategoriesPage: this.$route.params.id,
+                codeCatFromCategoriesPage: this.$route.params.codeCat,
+                noReaFromDirectorsPage: this.$route.params.noRea,
             }
         },
-        // Appelées à la création du component
+        // Appelée à la création du component
         created() {
-            // récupérer film
-            if(this.codeCatFromCategoriesPage === undefined) {
+            // Pour afficher tous les films
+            if(this.codeCatFromCategoriesPage === undefined && this.noReaFromDirectorsPage === undefined) {
                 this.fetchMovies();
-            } else {
+            // Pour afficher les films d'une catégorie choisie dans la page catégorie
+            } else if(this.codeCatFromCategoriesPage !== undefined && this.noReaFromDirectorsPage === undefined) {
                 this.getMoviesFromCat(this.codeCatFromCategoriesPage)
+            // Pour afficher les films d'un réalisateur choisi dans la page réalisateurs
+            } else if(this.noReaFromDirectorsPage !== undefined && this.codeCatFromCategoriesPage === undefined) {
+                this.getMoviesFromDirector(this.noReaFromDirectorsPage)
+            } else {
+                this.codeCatFromCategoriesPage = undefined
+                this.noReaFromDirectorsPage = undefined
+                this.fetchMovies()
             }
             // récupérer réalisateurs
             this.fetchDirectors();
@@ -186,7 +230,7 @@
             ...mapState({categories: state => state.categories}),
         },
         methods: {
-            ...mapActions('movies', ['fetchMovies', 'createMovie', 'getAMovie', 'editMovie', 'deleteMovie', 'getMoviesFromCat']),
+            ...mapActions('movies', ['fetchMovies', 'createMovie', 'getAMovie', 'editMovie', 'deleteMovie', 'getMoviesFromCat', 'getMoviesFromDirector']),
             ...mapActions('directors', ['fetchDirectors', 'getADirector']),
             ...mapActions('categories', ['fetchCategories', 'getACategory']),
 
@@ -242,6 +286,7 @@
                                 montantRecette: this.movieToEdit.montantRecette, noRea: this.movieToEdit.noRea, codeCat: this.movieToEdit.codeCat})
                         } else {
                             this.movieToEdit = this.movies.movies.movieSelected.movie
+                            this.$router.go(0)
                         }
                     }
                 }
@@ -259,7 +304,9 @@
 
             showAllMovies() {
                 this.codeCatFromCategoriesPage = undefined
-                return this.fetchMovies()
+                this.noReaFromDirectorsPage = undefined
+                this.fetchMovies()
+                return this.$router.push('/movies')
             }
         }
     }

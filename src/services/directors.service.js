@@ -29,7 +29,7 @@ const DirectorsService = {
         }
     },
 
-    updateDirector: async function(noRea, nomRea, prenRea) {
+    editDirector: async function(noRea, nomRea, prenRea) {
         try {
             return await HTTP.getInstance().put(`http://${API_PATH}/directors/updateDirector`, {noRea, nomRea, prenRea})
         } catch (error) {

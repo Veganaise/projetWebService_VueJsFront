@@ -9,6 +9,7 @@ import ActorDetails from '../components/actors/ActorDetails'
 import Administration from "../components/users/Administration";
 import Profile from "../components/users/Profile";
 import Categories from "../components/categories/Categories";
+import Directors from "../components/directors/Directors";
 import store from '../store/index'
 
 Vue.use(VueRouter)
@@ -31,14 +32,19 @@ const routes = [
     },
     {
         path: '/movieDetails/:id',
-        props: true,
         name: 'MovieDetails',
         component: MovieDetails
     },
     {
-      path: '/moviesCategory/:id',
-      name: 'MoviesCategory',
-      component: Movies
+        path: '/moviesCategory/:codeCat',
+        name: 'MoviesCategory',
+        component: Movies
+    },
+    {
+        path: '/moviesDirector/:noRea',
+        props: (route) => ({ nomRea: route.query.nomRea, prenRea: route.query.prenRea }),
+        name: 'MoviesDirector',
+        component: Movies
     },
     {
         path: '/actors',
@@ -65,6 +71,11 @@ const routes = [
         path: '/categories',
         name: 'Categories',
         component: Categories
+    },
+    {
+        path: '/directors',
+        name: 'Directors',
+        component: Directors
     }
 ]
 

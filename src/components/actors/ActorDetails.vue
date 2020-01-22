@@ -3,11 +3,7 @@
         <router-link to="/actors"><img class="ml-1 mt-1" src="../../assets/icon/left-arrow.png"/></router-link>
         <div class="w-75 mt-0 mr-auto ml-auto bg-dark">
             <h1 class="text-white mt-3 text-center">Informations sur l'acteur n°{{noAct}}</h1>
-            <div v-if="renderComponent && actors.actors.actorSelected === undefined">
-                <h4 class="text-white text-center m-auto" @click="forceRerender()">Force Reload</h4>
-                <br />
-            </div>
-            <div v-if="renderComponent && actors.actors.actorSelected !== undefined">
+            <div v-if="renderComponent">
                 <div class="row mt-3">
                     <div class="col-md-4 ml-auto">
                         <h4 class="text-white"><img src="../../assets/icon/user-r.png"/>  Nom</h4>
@@ -32,16 +28,16 @@
                         <h4 class="text-white">{{actors.actors.actorSelected.actor.dateDeces}}</h4>
                     </div>
                 </div>
-                <div class="row mt-3">
-                    <div class="col-md-4 ml-auto">
-                        <h4 class="text-white"><img src="../../assets/icon/superhero.png"/>  Personnages</h4>
-                    </div>
-                    <div class="col-md-4 mr-auto ml-0 text-center">
+            </div>
+            <div class="row mt-3" v-if="renderCharacters">
+                <div class="col-md-4 ml-auto">
+                    <h4 class="text-white"><img src="../../assets/icon/superhero.png"/>  Personnages</h4>
+                </div>
+                <div class="col-md-4 mr-auto ml-0 text-center">
+                    <div v-for="character in characters" :key="character.noFilm">
                         <div v-for="character in characters" :key="character.noFilm">
-                            <div v-for="character in characters" :key="character.noFilm">
-                                <h4 class="text-white" v-for="(element, index) in character.charactersSelected.character" :key="index" :value="element.nomPers">
-                                    {{element.nomPers}} ({{element.filmByNoFilm.titre}} - {{element.filmByNoFilm.realisateurByNoRea.prenRea}} {{element.filmByNoFilm.realisateurByNoRea.nomRea}})</h4>
-                            </div>
+                            <h4 class="text-white" v-for="(element, index) in character.charactersSelected.character" :key="index" :value="element.nomPers">
+                                {{element.nomPers}} ({{element.filmByNoFilm.titre}} - {{element.filmByNoFilm.realisateurByNoRea.prenRea}} {{element.filmByNoFilm.realisateurByNoRea.nomRea}})</h4>
                         </div>
                     </div>
                 </div>
@@ -58,15 +54,27 @@
         data() {
             return {
                 noAct: this.$route.params.id,
-                renderComponent: true
+                renderComponent: false,
+                renderCharacters: false
             }
         },
         created() {
             this.getAnActor(this.noAct)
             this.getActorCharacters(this.noAct)
-        },
-        mounted() {
-            this.forceRerender()
+
+            // eslint-disable-next-line no-unused-vars
+            this.$store.subscribe((mutation, state) => {
+                if (mutation.type === 'actors/getAnActorSuccess') {
+                    this.renderComponent = true
+                }
+            });
+
+            // eslint-disable-next-line no-unused-vars
+            this.$store.subscribe((mutation, state) => {
+                if (mutation.type === 'characters/getActorCharactersSuccess') {
+                    this.renderCharacters = true
+                }
+            });
         },
         computed: {
             ...mapState({actors: state => state.actors}),
@@ -76,15 +84,6 @@
             ...mapActions('actors', ['getAnActor']),
             ...mapActions('characters', ['getActorCharacters']),
 
-            forceRerender() {
-                // Remove my-component from the DOM
-                this.renderComponent = false
-
-                this.$nextTick(() => {
-                    // Add the component back in
-                    this.renderComponent = true
-                });
-            }
         },
     }
 </script>

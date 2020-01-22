@@ -77,6 +77,16 @@ const actions = {
             commit('getMoviesFromCatFailure', {error: e})
             return false
         }
+    },
+
+    async getMoviesFromDirector({commit}, noRea) {
+        try {
+            const movies = await MoviesService.getMoviesFromDirector(noRea)
+            commit('getMoviesFromDirectorSuccess', movies.data)
+        } catch(e) {
+            commit('getMoviesFromDirectorFailure', {error: e})
+            return false
+        }
     }
 
 };
@@ -127,6 +137,13 @@ const mutations = {
     getMoviesFromCatFailure(state, error) {
         state.movies = error
     },
+
+    getMoviesFromDirectorSuccess(state, movies) {
+        state.movies = {items : movies}
+    },
+    getMoviesFromDirectorFailure(state, error) {
+        state.movies = error
+    }
 };
 
 export const movies = {
