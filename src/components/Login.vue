@@ -30,6 +30,7 @@
 
 <script>
     import { mapGetters, mapActions, mapState } from 'vuex'
+    import router from '../router'
 
     export default {
         name: "Login",
@@ -45,13 +46,23 @@
             ...mapState({auth: state => state.auth}),
         },
         methods: {
-            ...mapActions('auth', ['authenticate']),
+            ...mapActions('auth', ['authenticate', 'getUserConnected']),
 
-            handleSubmit() {
-                this.submitted = true
+            async handleSubmit() {
+                this.submitted = true;
                 if (this.username !== '' && this.password !== '') {
-                    this.authenticate({username: this.username, password: this.password})
-                    this.password = ""
+                    let authenticationSuccess = await this.authenticate({
+                        username: this.username,
+                        password: this.password
+                    });
+                    this.password = "";
+                    if (authenticationSuccess) {
+                        // Get the user
+                        await this.getUserConnected();
+
+                        // And change current route
+                        router.push('/');
+                    }
                 }
             }
         },

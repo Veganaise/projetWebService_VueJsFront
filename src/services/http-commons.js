@@ -5,7 +5,7 @@ import TokenService from "./storage.service";
 //import store from '../movieStore';
 
 // instanciation d'axios
-const axiosCreate = axios.create({
+const axiosCreate = () => axios.create({
     baseURL: `http://${API_PATH}`,
     //timeout: 10000,
     headers: {
@@ -24,12 +24,15 @@ export var HTTP = (function () {
     return {
        getInstance: function () {
            if(!axios_instance){
-               axios_instance = axiosCreate;
+               axios_instance = axiosCreate();
            }
            // Pour voir ce qu'il se passe à chaque requête
            //axios_instance.interceptors.request.use(interceptorValid, interceptorError);
            return axios_instance;
-       }
+       },
+        reset: () => {
+            axios_instance = undefined;
+        }
    }
 })();
 
@@ -59,7 +62,10 @@ const AuthenticateService = {
             return await instance.post('authentication/authenticate', Qs.parse({
                 "username": username,
                 "password": password
-            }))
+            })).then(response => {
+                HTTP.reset();
+                return response;
+            })
         } catch(error) {
             throw error
         }

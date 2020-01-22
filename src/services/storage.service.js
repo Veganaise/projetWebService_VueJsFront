@@ -1,17 +1,17 @@
-const TOKEN_KEY = 'access_token'
+const TOKEN_KEY = 'access_token';
 
 const TokenService = {
     getToken() {
-        return localStorage.getItem(TOKEN_KEY)
+        return localStorage.getItem(TOKEN_KEY);
     },
 
     saveToken(accessToken) {
-        localStorage.setItem(TOKEN_KEY, 'Bearer ' + accessToken)
+        localStorage.setItem(TOKEN_KEY, 'Bearer ' + accessToken);
     },
 
     removeToken() {
-        localStorage.removeItem(TOKEN_KEY)
+        localStorage.removeItem(TOKEN_KEY);
     }
-}
+};
 
-export default TokenService
+export default TokenService;
