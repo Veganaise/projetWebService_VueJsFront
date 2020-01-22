@@ -37,6 +37,7 @@ const routes = [
     },
     {
         path: '/moviesCategory/:codeCat',
+        props: (route) => ({ libelle: route.query.libelle }),
         name: 'MoviesCategory',
         component: Movies
     },

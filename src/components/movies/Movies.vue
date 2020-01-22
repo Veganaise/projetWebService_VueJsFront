@@ -111,7 +111,7 @@
 
         <!-- Affichage depuis l'onglet "Catégories" du menu-->
         <div v-if="codeCatFromCategoriesPage !== undefined">
-            <h2 class="mt-3 text-center"><strong>Liste des films de la catégorie {{codeCatFromCategoriesPage}} </strong><img src="../../assets/icon/plus_b.png" alt="plus" @click="onClickCreateMovie()"/></h2>
+            <h2 class="mt-3 text-center"><strong>Liste des films de la catégorie {{libelle}} </strong><img src="../../assets/icon/plus_b.png" alt="plus" @click="onClickCreateMovie()"/></h2>
             <div class="text-center">
                 <a class="text-white" @click="showAllMovies()">Afficher tous les films</a>
             </div>
@@ -142,7 +142,7 @@
 
         <!-- Affichage depuis l'onglet "Réalisateurs" du menu-->
         <div v-if="noReaFromDirectorsPage !== undefined">
-            <h2 class="mt-3 text-center"><strong>Liste des films du directeur {{noReaFromDirectorsPage}} </strong><img src="../../assets/icon/plus_b.png" alt="plus" @click="onClickCreateMovie()"/></h2>
+            <h2 class="mt-3 text-center"><strong>Liste des films de {{prenRea}} {{nomRea}} </strong><img src="../../assets/icon/plus_b.png" alt="plus" @click="onClickCreateMovie()"/></h2>
             <div class="text-center">
                 <a class="text-white" @click="showAllMovies()">Afficher tous les films</a>
             </div>
@@ -201,6 +201,9 @@
 
                 codeCatFromCategoriesPage: this.$route.params.codeCat,
                 noReaFromDirectorsPage: this.$route.params.noRea,
+                nomRea: this.$route.query.nomRea,
+                prenRea: this.$route.query.prenRea,
+                libelle: this.$route.query.libelle
             }
         },
         // Appelée à la création du component

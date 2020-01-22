@@ -56,7 +56,7 @@
                     </template>
                     <img class="card-img-top" :src="element.image" :alt="element.libelleCat">
                     <br />
-                    <router-link class="text-white pt-3" :to="`/moviesCategory/${element.codeCat}`">Voir les films de cette catégorie</router-link>
+                    <router-link class="text-white pt-3" :to="`/moviesCategory/${element.codeCat}?libelle=${element.libelleCat}`">Voir les films de cette catégorie</router-link>
                 </b-card>
                 <br />
                 <span v-if="categories.categories.error !== '' && categories.categories.items === undefined">{{categories.categories.error}}</span>
