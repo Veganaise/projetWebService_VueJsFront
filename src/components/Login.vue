@@ -21,7 +21,7 @@
         <div class="text-center mt-2">
             <button class="btn" style="background-color: #BB0B0B;" type="submit" v-on:click="handleSubmit()">Login</button>
             <br/>
-            <router-link class="text-white" to="/register">Vous n'avez pas de compte ? Inscrivez vous ici</router-link>
+            <router-link class="text-white" to="#/register">Vous n'avez pas de compte ? Inscrivez vous ici</router-link>
             <br />
             <span v-if="auth.authenticationError !== '' && !auth.authenticationSuccess" class="text-danger">{{authenticationError}}</span>
         </div>
