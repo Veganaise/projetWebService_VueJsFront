@@ -11,7 +11,7 @@ import Profile from "../components/users/Profile";
 import Categories from "../components/categories/Categories";
 import store from '../store/index'
 
-Vue.use(VueRouter)
+Vue.use(VueRouter);
 
 const routes = [
     {
@@ -66,17 +66,17 @@ const routes = [
         name: 'Categories',
         component: Categories
     }
-]
+];
 
 const router = new VueRouter({
-    mode: 'history',
+    //mode: 'history',
     routes
-})
+});
 
 router.beforeEach((to, from, next) => {
-    const publicPages = ['/login', '/']
-    const authRequired = !publicPages.includes(to.path)
-    const loggedIn = store.getters['auth/loggedIn']
+    const publicPages = ['/login', '/'];
+    const authRequired = !publicPages.includes(to.path);
+    const loggedIn = store.getters['auth/loggedIn'];
     if (authRequired && !loggedIn) {
         return next('login')
     }
