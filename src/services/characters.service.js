@@ -6,7 +6,7 @@ const CharactersService = {
     fetchCharacters: async function() {
         try {
             return await HTTP.getInstance()
-                .get(`http://${API_PATH}/characters/getCharacters`)
+                .get(`${API_PATH}/characters/getCharacters`)
                 .then(response => Qs.parse(response.data))
         } catch (error) {
             throw error
@@ -16,7 +16,7 @@ const CharactersService = {
     getActorCharacters: async function(noAct) {
         try {
             return await HTTP.getInstance()
-                .get(`http://${API_PATH}/characters/getCharacters/actor/${encodeURIComponent(noAct.toString())}`)
+                .get(`${API_PATH}/characters/getCharacters/actor/${encodeURIComponent(noAct.toString())}`)
                 .then(response => Qs.parse(response.data))
         } catch (error) {
             throw error
@@ -25,7 +25,7 @@ const CharactersService = {
 
     getMovieCharacters: async function(noFilm) {
         try {
-            return await HTTP.getInstance().get(`http://${API_PATH}/characters/getCharacters/movie/${encodeURIComponent(noFilm.toString())}`)
+            return await HTTP.getInstance().get(`${API_PATH}/characters/getCharacters/movie/${encodeURIComponent(noFilm.toString())}`)
         } catch (error) {
             throw error
         }
@@ -36,7 +36,7 @@ const CharactersService = {
         const idActor = actor.noAct
         try {
             return await HTTP.getInstance()
-                .get(`http://${API_PATH}/characters/getCharacters/movie/${encodeURIComponent(idMovie.toString())}/actor/${encodeURIComponent(idActor.toString())}`)
+                .get(`${API_PATH}/characters/getCharacters/movie/${encodeURIComponent(idMovie.toString())}/actor/${encodeURIComponent(idActor.toString())}`)
                 .then(response => Qs.parse(response.data))
         } catch (error) {
             throw error
@@ -45,7 +45,7 @@ const CharactersService = {
 
     createCharacter: async function(noFilm, noAct, nomPers) {
         try {
-            return await HTTP.getInstance().post(`http://${API_PATH}/characters/insertCharacter`, {noFilm, noAct, nomPers})
+            return await HTTP.getInstance().post(`${API_PATH}/characters/insertCharacter`, {noFilm, noAct, nomPers})
         } catch (error) {
             throw error
         }
@@ -53,7 +53,7 @@ const CharactersService = {
 
     updateCharacter: async function(noFilm, noAct, nomPers) {
         try {
-            return await HTTP.getInstance().put(`http://${API_PATH}/characters/updateCharacter`, {noFilm, noAct, nomPers})
+            return await HTTP.getInstance().put(`${API_PATH}/characters/updateCharacter`, {noFilm, noAct, nomPers})
         } catch (error) {
             throw error
         }
@@ -63,7 +63,7 @@ const CharactersService = {
         const idMovie = movie.noFilm
         const idActor = actor.noAct
         try {
-            return await HTTP.getInstance().delete(`http://${API_PATH}/characters/deleteCharacter/movie/${encodeURIComponent(idMovie.toString())}/actors/${encodeURIComponent(idActor.toString())}`)
+            return await HTTP.getInstance().delete(`${API_PATH}/characters/deleteCharacter/movie/${encodeURIComponent(idMovie.toString())}/actors/${encodeURIComponent(idActor.toString())}`)
         } catch (error) {
             throw error
         }

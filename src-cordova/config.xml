@@ -12,11 +12,11 @@
     <hook type="after_prepare" src="../node_modules/vue-cli-plugin-cordova/serve-config-hook.js" />
     <!--  Increase timeout to 70 seconds  -->
     <preference name="LoadUrlTimeoutValue" value="70000"/>
-    <content src="http://localhost:8080" />
+    <content src="index.html" />
     <plugin name="cordova-plugin-whitelist" spec="1" />
     <access origin="*" />
-    <allow-navigation href="http://polyfilm.polytech.thiboud.fr" />
-    <allow-intent href="http://polyfilm.polytech.thiboud.fr" />
+    <allow-navigation href="*" />
+    <allow-intent href="https://polyfilm.polytech.thiboud.fr" />
 <!--    <allow-intent href="http://*/*" />-->
 <!--    <allow-intent href="https://*/*" />-->
     <allow-intent href="tel:*" />

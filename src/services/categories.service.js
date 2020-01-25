@@ -6,7 +6,7 @@ const CategoriesService = {
     fetchCategories: async function() {
         try {
             return await HTTP.getInstance()
-                .get(`http://${API_PATH}/categories/getCategories`)
+                .get(`${API_PATH}/categories/getCategories`)
                 .then(response => Qs.parse(response.data))
         } catch (error) {
             throw error
@@ -15,7 +15,7 @@ const CategoriesService = {
 
     getACategory: async function(code) {
         try {
-            return await HTTP.getInstance().get(`http://${API_PATH}/categories/getCategory/${encodeURIComponent(code)}`)
+            return await HTTP.getInstance().get(`${API_PATH}/categories/getCategory/${encodeURIComponent(code)}`)
         } catch (error) {
             throw error
         }
@@ -23,7 +23,7 @@ const CategoriesService = {
 
     createCategory: async function(codeCat, libelleCat, image) {
         try {
-            return await HTTP.getInstance().post(`http://${API_PATH}/categories/insertCategory`, {codeCat, libelleCat, image})
+            return await HTTP.getInstance().post(`${API_PATH}/categories/insertCategory`, {codeCat, libelleCat, image})
         } catch (error) {
             throw error
         }
@@ -31,7 +31,7 @@ const CategoriesService = {
 
     editCategory: async function(codeCat, libelleCat, image) {
         try {
-            return await HTTP.getInstance().put(`http://${API_PATH}/categories/updateCategory`, {codeCat, libelleCat, image})
+            return await HTTP.getInstance().put(`${API_PATH}/categories/updateCategory`, {codeCat, libelleCat, image})
         } catch (error) {
             throw error
         }
@@ -39,7 +39,7 @@ const CategoriesService = {
 
     deleteCategory: async function(code) {
         try {
-            return await HTTP.getInstance().delete(`http://${API_PATH}/categories/deleteCategory/${encodeURIComponent(code)}`)
+            return await HTTP.getInstance().delete(`${API_PATH}/categories/deleteCategory/${encodeURIComponent(code)}`)
         } catch (error) {
             throw error
         }

@@ -6,7 +6,7 @@ import TokenService from "./storage.service";
 
 // instanciation d'axios
 const axiosCreate = () => axios.create({
-    baseURL: `http://${API_PATH}`,
+    baseURL: `${API_PATH}`,
     //timeout: 10000,
     headers: {
         "Access-Control-Allow-Origin" : "*",
